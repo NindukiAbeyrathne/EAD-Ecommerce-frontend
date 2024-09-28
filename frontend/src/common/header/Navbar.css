@@ -1,0 +1,93 @@
+/* Navbar.css */
+.header {
+    background-color: #0f3460; /* Dark background for the header */
+    padding: 15px 20px; /* Padding for spacing */
+    color: #fff; /* White text color */
+    font-family: 'Poppins', sans-serif; /* Font style */
+    display: flex; /* Flexbox layout */
+    justify-content: space-between; /* Space between categories and navigation */
+    align-items: center; /* Center items vertically */
+    position: sticky; /* Stick to the top */
+    top: 0; /* Stick to the top of the viewport */
+    z-index: 1000; /* Ensure it is above other elements */
+  }
+  
+  .catgrories {
+    display: flex;
+    align-items: center;
+  }
+  
+  .catgrories h4 {
+    font-size: 18px;
+    margin-left: 10px;
+    color: #110f0f;
+  }
+  
+  .navlink ul {
+    display: flex; /* Flexbox for horizontal navigation */
+    justify-content: center; /* Center navigation links */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    list-style: none; /* Remove bullet points */
+  }
+  
+  .navlink ul li {
+    margin: 0 15px; /* Space between links */
+  }
+  
+  .navlink ul li a {
+    color: #fff; /* Link color */
+    text-decoration: none; /* Remove underline */
+    font-weight: 500; /* Font weight for links */
+    padding: 8px 15px; /* Padding inside links */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+  }
+  
+  .navlink ul li a:hover {
+    background-color: #e94560; /* Background color on hover */
+    color: #eddfdf; /* White text color */
+  }
+  
+  /* Toggle Button for Mobile */
+  .toggle {
+    display: none; /* Hide toggle button on larger screens */
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .close, .open {
+    font-size: 24px;
+    color: #fff;
+  }
+  
+  /* Mobile Navigation Styles */
+  @media (max-width: 768px) {
+    .navlink ul {
+      display: none; /* Hide navigation on smaller screens */
+    }
+  
+    .navlink ul.nav-links-MobileMenu {
+      display: flex; /* Flexbox for mobile navigation */
+      flex-direction: column; /* Stack links vertically */
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background-color: #0f3460; /* Background for mobile menu */
+      padding: 20px;
+      border-radius: 5px;
+    }
+  
+    .navlink ul.nav-links-MobileMenu li {
+      margin: 10px 0; /* Space between links in mobile view */
+    }
+  
+    .toggle {
+      display: block; /* Show toggle button on smaller screens */
+    }
+    
+  }
+  
