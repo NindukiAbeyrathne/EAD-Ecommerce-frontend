@@ -1,0 +1,70 @@
+.order-page {
+    margin: 2rem auto;
+    max-width: 100%;
+  }
+  
+  .order-management-card {
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
+  .order-management-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .order-management-card p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  .order-table th,
+  .order-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .order-table th {
+    background-color: #333;
+    color: white;
+  }
+  
+  .order-table td {
+    color: #333;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #218838;
+  }
+  
+  button + button {
+    margin-left: 0.5rem;
+    background-color: #dc3545;
+  }
+  
+  button + button:hover {
+    background-color: #c82333;
+  }
+  

@@ -1,196 +1,73 @@
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// import {
-//   Container,
-//   Row,
-//   Col,
-//   Form,
-//   Button,
-//   Table,
-//   Alert,
-//   Spinner,
-// } from "react-bootstrap";
+import React, { useState } from "react";
+import NavigationBar from "./nav_bar"; // Import the NavigationBar component
+import "../../styles/order.css"; // Assuming the CSS file is in the same folder structure
 
-// const OrderManagement = () => {
-//   const [orders, setOrders] = useState([]); // State for orders
-//   const [newOrder, setNewOrder] = useState({ customer: "", product: "" }); // State for new order
-//   const [loading, setLoading] = useState(false); // State for loading indication
-//   const [error, setError] = useState(""); // State for error messages
+const OrderPage = () => {
+  // Example state to track orders
+  const [orders, setOrders] = useState([
+    { id: 1, customer: "John Doe", status: "Pending", canCancel: true },
+    { id: 2, customer: "Jane Smith", status: "Shipped", canCancel: false },
+  ]);
 
-//   // Fetch orders from backend when the component mounts
-//   useEffect(() => {
-//     fetchOrders();
-//   }, []);
+  const markAsDelivered = (orderId) => {
+    setOrders(
+      orders.map((order) =>
+        order.id === orderId ? { ...order, status: "Delivered" } : order
+      )
+    );
+  };
 
-//   // Fetch orders from backend API
-//   const fetchOrders = async () => {
-//     setLoading(true);
-//     try {
-//       const response = await axios.get("/api/orders"); // Replace with your API URL
-//       setOrders(response.data);
-//     } catch (err) {
-//       setError("Error fetching orders.");
-//     }
-//     setLoading(false);
-//   };
+  const cancelOrder = (orderId) => {
+    setOrders(orders.filter((order) => order.id !== orderId));
+  };
 
-//   // Create a new order
-//   const createOrder = async () => {
-//     if (!newOrder.customer || !newOrder.product) {
-//       alert("Please fill in both customer and product fields.");
-//       return;
-//     }
-
-//     try {
-//       const response = await axios.post("/api/orders", {
-//         customer: newOrder.customer,
-//         product: newOrder.product,
-//         status: "Processing",
-//       });
-//       setOrders([...orders, response.data]); // Update state with the newly created order
-//       setNewOrder({ customer: "", product: "" }); // Reset form fields
-//     } catch (err) {
-//       setError("Error creating order.");
-//     }
-//   };
-
-//   // Update order status
-//   const updateOrderStatus = async (orderId, newStatus) => {
-//     try {
-//       await axios.put(`/api/orders/${orderId}`, { status: newStatus });
-//       setOrders(
-//         orders.map((order) =>
-//           order.id === orderId ? { ...order, status: newStatus } : order
-//         )
-//       );
-//     } catch (err) {
-//       setError("Error updating order status.");
-//     }
-//   };
-
-//   // Cancel an order
-//   const cancelOrder = async (orderId) => {
-//     try {
-//       await axios.delete(`/api/orders/${orderId}`);
-//       setOrders(orders.filter((order) => order.id !== orderId)); // Remove order from state
-//     } catch (err) {
-//       setError("Error canceling the order.");
-//     }
-//   };
-
-//   return (
-//     <Container className="mt-5">
-//       <h1 className="text-center mb-4">Order Management</h1>
-
-//       {/* Error Handling */}
-//       {error && <Alert variant="danger">{error}</Alert>}
-
-//       {/* Loading Indicator */}
-//       {loading && <Spinner animation="border" className="mb-3" />}
-
-//       {/* Form to Create New Order */}
-//       <Row className="mb-5">
-//         <Col md={6} className="mx-auto">
-//           <h2>Create New Order</h2>
-//           <Form>
-//             <Form.Group className="mb-3">
-//               <Form.Label>Customer Name</Form.Label>
-//               <Form.Control
-//                 type="text"
-//                 placeholder="Enter customer name"
-//                 value={newOrder.customer}
-//                 onChange={(e) =>
-//                   setNewOrder({ ...newOrder, customer: e.target.value })
-//                 }
-//               />
-//             </Form.Group>
-//             <Form.Group className="mb-3">
-//               <Form.Label>Product</Form.Label>
-//               <Form.Control
-//                 type="text"
-//                 placeholder="Enter product"
-//                 value={newOrder.product}
-//                 onChange={(e) =>
-//                   setNewOrder({ ...newOrder, product: e.target.value })
-//                 }
-//               />
-//             </Form.Group>
-//             <Button variant="primary" onClick={createOrder} className="w-100">
-//               Create Order
-//             </Button>
-//           </Form>
-//         </Col>
-//       </Row>
-
-//       {/* List of Existing Orders */}
-//       <h2 className="mb-4">Manage Existing Orders</h2>
-//       <Table striped bordered hover>
-//         <thead>
-//           <tr>
-//             <th>Order ID</th>
-//             <th>Customer</th>
-//             <th>Product</th>
-//             <th>Status</th>
-//             <th>Update Status</th>
-//             <th>Cancel Order</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {orders.map((order) => (
-//             <tr key={order.id}>
-//               <td>{order.id}</td>
-//               <td>{order.customer}</td>
-//               <td>{order.product}</td>
-//               <td>{order.status}</td>
-//               <td>
-//                 <Form.Select
-//                   value={order.status}
-//                   onChange={(e) => updateOrderStatus(order.id, e.target.value)}
-//                   disabled={
-//                     order.status === "Dispatched" ||
-//                     order.status === "Delivered"
-//                   }>
-//                   <option value="Processing">Processing</option>
-//                   <option value="Dispatched">Dispatched</option>
-//                   <option value="Delivered">Delivered</option>
-//                 </Form.Select>
-//               </td>
-//               <td>
-//                 <Button
-//                   variant="danger"
-//                   onClick={() => cancelOrder(order.id)}
-//                   disabled={order.status !== "Processing"}>
-//                   Cancel Order
-//                 </Button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </Table>
-//     </Container>
-//   );
-// };
-
-// export default OrderManagement;
-// src/components/admin/OrderManagement.jsx
-import React from "react";
-import NavigationBar from "./nav_bar";
-
-const OrderManagement = () => {
   return (
-    <div className="admin-page-container">
+    <div className="order-page">
+      {/* Navigation Bar is outside the order management card */}
       <NavigationBar />
-      <div className="admin-page-content">
+      <br />
+      <div className="order-management-card">
         <h2>Order Management</h2>
-        <p>View and manage customer orders here.</p>
-        <ul>
-          <li>View and manage all customer orders.</li>
-          <li>Track order statuses and mark them as delivered.</li>
-          <li>Cancel orders upon customer request and notify the customer.</li>
-        </ul>
+        <p>
+          View and manage all customer orders. Track order statuses and mark
+          them as delivered. Cancel orders upon customer request and notify the
+          customer.
+        </p>
+
+        <table className="order-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{order.customer}</td>
+                <td>{order.status}</td>
+                <td>
+                  {order.status !== "Delivered" && (
+                    <button onClick={() => markAsDelivered(order.id)}>
+                      Mark as Delivered
+                    </button>
+                  )}
+                  {order.canCancel && (
+                    <button onClick={() => cancelOrder(order.id)}>
+                      Cancel Order
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
 
-export default OrderManagement;
+export default OrderPage;
