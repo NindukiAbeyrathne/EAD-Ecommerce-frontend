@@ -9,6 +9,8 @@ import {
 import VendorManagementPage from "./common/pages/mock_pages/mock_pg_vendor";
 import InventoryManagementPage_mock from "./common/pages/mock_pages/mock_pg_inventry";
 import ProductManagementPage from "./common/pages/ProductManagementPage";
+import UserForm from "./common/pages/Login/UserForm";
+import AdminDashboard from "./common/pages/Login/AdminDashboard";
 
 function App() {
   return (
@@ -19,7 +21,11 @@ function App() {
           <Route path="/inventory" element={<InventoryManagementPage_mock />} />
           <Route path="/vendors" element={<VendorManagementPage />} />
           <Route path="/products" element={<ProductManagementPage />} />
+          <Route path="/UserForm" element={<UserForm />} />
           {/* Add more routes for other pages as needed */}
+
+          {/* Admin dashboard route */}
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </Router>
     </>
