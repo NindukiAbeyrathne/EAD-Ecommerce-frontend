@@ -1,0 +1,40 @@
+.order-management {
+    padding: 20px;
+  }
+  
+  .order-management h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  
+  .order-management .form-control {
+    margin-bottom: 15px;
+  }
+  
+  .order-management .btn {
+    width: 100%;
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+  
+
+  /* Further
+  .order-management {
+    padding: 20px;
+  }
+  
+  .order-management h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  
+  .order-management .form-control {
+    margin-bottom: 15px;
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+   */
