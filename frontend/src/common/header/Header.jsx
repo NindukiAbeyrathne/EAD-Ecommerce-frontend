@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <>
         <Head/>
-        <Search/>
+      
         <Navbar/>
     </>
   )

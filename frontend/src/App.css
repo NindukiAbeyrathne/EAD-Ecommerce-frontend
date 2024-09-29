@@ -48,3 +48,9 @@ li {
 .RText {
   text-align-last: right;
 }
+footer {
+  background-color: #0f3460;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}

@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../assets/images/logo.jpg'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link } from 'react-router-dom'
+
 
 const Search = () => {
     // fixed Header

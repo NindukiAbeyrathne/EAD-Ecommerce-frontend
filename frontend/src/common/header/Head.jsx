@@ -1,28 +1,49 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Head.css'; // Make sure you have CSS for styling
+import logo from '../assets/images/logo.jpg'; 
 
 const Head = () => {
   return (
     <div>
       <section className='head'>
         <div className='container d_flex'>
-          <div className='left row'>
-            <i className='fa fa-phone'></i>
-            <label> +94774789444</label>
-            <i className='fa fa-envelope'></i>
-            <label> support@ui-lib.com</label>
+          {/* Logo */}
+          <div className='logo'>
+         
+          <img src={logo} alt='Organization Logo' /> {/* Organization Logo */}
+        
           </div>
-          <div className='right row RText'>
-            <label>Theme FAQ"s</label>
-            <label>Need Help?</label>
-            <span>🏳️‍⚧️</span>
-            <label>EN</label>
-            <span>🏳️‍⚧️</span>
-            <label>USD</label>
+
+          {/* Search Bar */}
+          <div className='search-box'>
+            <input type='text' placeholder='Search for products...' />
+            <button type='button'>
+              <i className='fa fa-search'></i>
+            </button>
+          </div>
+
+          {/* Account and Cart */}
+          <div className='right-icons d_flex'>
+            {/* Account */}
+            <div className='account'>
+              <Link to='/account'>
+                <i className='fa fa-user'></i>
+              </Link>
+            </div>
+
+            {/* Cart */}
+            <div className='cart'>
+              <Link to='/cart'>
+                <i className='fa fa-shopping-cart'></i>
+                <span className='cart-count'>0</span> {/* Cart item count */}
+              </Link>
+            </div>
           </div>
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default Head
+export default Head;
