@@ -27,10 +27,10 @@ const UserForm = () => {
         localStorage.setItem('isAdmin', true);  // Store admin status in localStorage
         navigate('/admin/dashboard');          // Redirect to the admin dashboard
       }
-      // Handle other roles (e.g., Vendor, CSR)
+      // Redirect Vendor to the Vendor Dashboard
       else if (foundUser.role === 'Vendor') {
-        setMessage('Logged in as Vendor. Redirect to vendor section...');
-        // Add redirection or additional logic for Vendor
+        localStorage.setItem('isVendor', true);  // Store vendor status in localStorage
+        navigate('/vendor/dashboard');           // Redirect to the vendor dashboard
       } 
       else if (foundUser.role === 'CSR') {
         setMessage('Logged in as CSR. Redirect to CSR section...');
