@@ -1,0 +1,182 @@
+/* AdminDashboard.css */
+.admin-dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f6f8;
+  }
+  
+  .admin-dashboard {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .admin-dashboard h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .admin-dashboard p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 40px;
+  }
+  
+  .admin-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .admin-actions a {
+    text-decoration: none;
+  }
+  
+  .admin-actions button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  /* src/styles/admin.css */
+body {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .admin-page-container {
+    padding: 20px;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 28px;
+    text-align: center;
+  }
+  
+  .navigation-bar {
+    background-color: #2c3e50;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navigation-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .navigation-bar li {
+    list-style: none;
+  }
+  
+  .nav-btn {
+    background-color: #3498db;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  .nav-btn:focus {
+    outline: none;
+  }
+  
+  .admin-page-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  ul li {
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 18px;
+  }
+  
+  .product-management ul li::before, 
+  .order-management ul li::before {
+    content: "•";
+    color: #3498db;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+  
+  .btn {
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .btn-primary {
+    background-color: #3498db;
+  }
+  
+  .btn-primary:hover {
+    background-color: #2980b9;
+  }
+  
+  .btn-secondary {
+    background-color: #2ecc71;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #27ae60;
+  }
+  
