@@ -2,8 +2,9 @@ import "./App.css";
 import Header from "./common/header/Header";
 import {
   BrowserRouter as Router,
-  Routes, // React Router v6 uses Routes
+  Routes,
   Route,
+  Navigate
 } from "react-router-dom";
 
 // Import your pages
@@ -13,7 +14,8 @@ import ProductManagementPage from "./common/pages/ProductManagementPage";
 import UserForm from "./common/pages/Login/UserForm";
 import AdminDashboard from "./common/pages/Login/AdminDashboard"; // Admin Dashboard
 import AdminManageUsersPage from "./common/pages/Login/AdminManageUsersPage"; // Import Admin Manage Users Page
-import VendorDashboard from "./common/pages/Login/VendorDashboard";
+import VendorDashboard from "./common/pages/Login/VendorDashboard"; // Vendor Dashboard
+import ProtectedRoute from "./common/pages/ProtectedRoute";// ProtectedRoute component
 
 function App() {
   return (
@@ -21,18 +23,19 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          {/* Public routes */}
-          <Route path="/inventory" element={<InventoryManagementPage_mock />} />
-          <Route path="/vendors" element={<VendorManagementPage />} />
-          <Route path="/products" element={<ProductManagementPage />} />
+          {/* Redirect root to the UserForm */}
+          <Route path="/" element={<Navigate to="/UserForm" />} />
 
+          {/* Public route */}
           <Route path="/UserForm" element={<UserForm />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route
-            path="/admin/manage-users"
-            element={<AdminManageUsersPage />}
-          />
-          <Route path="/vendor/dashboard" element={<VendorDashboard />} />
+
+          {/* Protected routes */}
+          <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/manage-users" element={<ProtectedRoute><AdminManageUsersPage /></ProtectedRoute>} />
+          <Route path="/vendor/dashboard" element={<ProtectedRoute><VendorDashboard /></ProtectedRoute>} />
+          <Route path="/inventory" element={<ProtectedRoute><InventoryManagementPage_mock /></ProtectedRoute>} />
+          <Route path="/vendors" element={<ProtectedRoute><VendorManagementPage /></ProtectedRoute>} />
+          <Route path="/products" element={<ProtectedRoute><ProductManagementPage /></ProtectedRoute>} />
         </Routes>
       </Router>
     </>

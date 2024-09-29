@@ -1,7 +1,7 @@
-// src/components/UserForm.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate for redirection
 import mockUsers from '../Data/mockUsers';       // Import mockUsers from the mock data file
+import "../../../styles/UserForm.css"   // Import the CSS file
 
 const UserForm = () => {
   const [email, setEmail] = useState('');        // State to manage email input
@@ -25,14 +25,18 @@ const UserForm = () => {
       // If the user is an admin, redirect to the admin dashboard
       if (foundUser.role === 'Administrator') {
         localStorage.setItem('isAdmin', true);  // Store admin status in localStorage
+        localStorage.setItem('isLoggedIn', true);  // Mark user as logged in
         navigate('/admin/dashboard');          // Redirect to the admin dashboard
       }
       // Redirect Vendor to the Vendor Dashboard
       else if (foundUser.role === 'Vendor') {
         localStorage.setItem('isVendor', true);  // Store vendor status in localStorage
+        localStorage.setItem('isLoggedIn', true);  // Mark user as logged in
         navigate('/vendor/dashboard');           // Redirect to the vendor dashboard
       } 
       else if (foundUser.role === 'CSR') {
+        localStorage.setItem('isCSR', true);  // Store CSR status in localStorage
+        localStorage.setItem('isLoggedIn', true);  // Mark user as logged in
         setMessage('Logged in as CSR. Redirect to CSR section...');
         // Add redirection or additional logic for CSR
       }
@@ -42,28 +46,32 @@ const UserForm = () => {
   };
 
   return (
-    <div className="user-form-page">
-      <h2>User Login</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}  // Update email state
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}  // Update password state
-          required
-        />
-        <button className="btn btn-primary" type="submit">Login</button>
-      </form>
-
-      {/* Display message after form submission */}
-      {message && <p>{message}</p>}
+    <div className="user-form-container">
+      <div className="user-form">
+        <h2 className="form-heading">Login to Your Account</h2>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}  // Update email state
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}  // Update password state
+              required
+            />
+          </div>
+          <button className="btn-submit" type="submit">Login</button>
+        </form>
+        {message && <p className="error-message">{message}</p>}
+      </div>
     </div>
   );
 };
