@@ -17,6 +17,10 @@ import AdminDashboard from "./common/pages/Login/AdminDashboard"; // Admin Dashb
 import AdminManageUsersPage from "./common/pages/Login/AdminManageUsersPage"; // Import Admin Manage Users Page
 import VendorDashboard from "./common/pages/Login/VendorDashboard"; // Vendor Dashboard
 import ProtectedRoute from "./common/pages/ProtectedRoute"; // ProtectedRoute component
+import VenderInventoryManagement from "./components/VenderInventoryManagement";
+import VenderProductManagement from "./components/VenderProductManagement";
+import VenderOrderManagement from "./components/VenderOrderManagement";
+import VendorFeedback from "./components/VendorFeedback";
 
 function App() {
   return (
@@ -96,6 +100,13 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/vendor/dashboard/products" element={<VenderProductManagement />} />
+          <Route
+            path="/vendor/dashboard/inventory"
+            element={<VenderInventoryManagement />}
+          />
+          <Route path="/vendor/dashboard/orders" element={<VenderOrderManagement />} />
+          <Route path="/vendor/dashboard/feedback" element={<VendorFeedback />} />
         </Routes>
       </Router>
     </>
