@@ -1,27 +1,30 @@
-// src/components/VendorDashboard.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
-const VendorDashboard = () => {
+function VendorDashboard() {
   return (
-    <div className="vendor-dashboard">
-      <h2>Vendor Dashboard</h2>
-      <p>Welcome to your dashboard. Here you can manage your products, inventory, and view orders.</p>
-      
-      {/* Links to different vendor functionalities */}
-      <div className="vendor-actions">
-        <Link to="/vendor/manage-products">
-          <button className="btn btn-primary">Manage Products</button>
-        </Link>
-        <Link to="/vendor/manage-inventory">
-          <button className="btn btn-secondary">Manage Inventory</button>
-        </Link>
-        <Link to="/vendor/manage-orders">
-          <button className="btn btn-success">Manage Orders</button>
-        </Link>
+    <div>
+      <h1>Vendor Dashboard</h1>
+      <ul className="nav nav-tabs">
+        <li className="nav-item">
+          <NavLink className="nav-link" to="products" activeClassName="active">Product Management</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="inventory" activeClassName="active">Inventory Management</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="orders" activeClassName="active">Order Management</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="feedback" activeClassName="active">Vendor Feedback</NavLink>
+        </li>
+      </ul>
+
+      <div className="tab-content">
+        <Outlet />
       </div>
     </div>
   );
-};
+}
 
 export default VendorDashboard;
