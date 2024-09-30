@@ -16,6 +16,11 @@ import UserForm from "./common/pages/Login/UserForm";
 import AdminDashboard from "./common/pages/Login/AdminDashboard"; // Admin Dashboard
 import AdminManageUsersPage from "./common/pages/Login/AdminManageUsersPage"; // Import Admin Manage Users Page
 import VendorDashboard from "./common/pages/Login/VendorDashboard"; // Vendor Dashboard
+import CSRDashboard from "./common/pages/Login/CSRDashboard.jsx"; //csr dashboard
+import CSRManageUsers from "./common/pages/CSR_pages/ManageUsers.jsx";
+import CSRManageOrders from "./common/pages/CSR_pages/ManageOrders.jsx";
+import CSRViewVendorsProducts from "./common/pages/CSR_pages/ViewVendorsProducts.jsx";
+import TrackDeliveries from "./common/pages/CSR_pages/TrackDeliveries.jsx";
 import ProtectedRoute from "./common/pages/ProtectedRoute"; // ProtectedRoute component
 
 function App() {
@@ -93,6 +98,46 @@ function App() {
             element={
               <ProtectedRoute>
                 <ProductManagementPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/csr/dashboard"
+            element={
+              <ProtectedRoute>
+                <CSRDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/csr/manage-users"
+            element={
+              <ProtectedRoute>
+                <CSRManageUsers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/csr/manage-orders"
+            element={
+              <ProtectedRoute>
+                <CSRManageOrders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/csr/manage-vendor-products"
+            element={
+              <ProtectedRoute>
+                <CSRViewVendorsProducts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/csr/manage-deliveries"
+            element={
+              <ProtectedRoute>
+                <TrackDeliveries />
               </ProtectedRoute>
             }
           />

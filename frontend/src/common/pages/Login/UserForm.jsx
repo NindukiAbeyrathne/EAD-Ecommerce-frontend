@@ -37,7 +37,8 @@ const UserForm = () => {
       else if (foundUser.role === 'CSR') {
         localStorage.setItem('isCSR', true);  // Store CSR status in localStorage
         localStorage.setItem('isLoggedIn', true);  // Mark user as logged in
-        setMessage('Logged in as CSR. Redirect to CSR section...');
+        navigate('/csr/dashboard');    
+        // setMessage('Logged in as CSR. Redirect to CSR section...');
         // Add redirection or additional logic for CSR
       }
     } else {
