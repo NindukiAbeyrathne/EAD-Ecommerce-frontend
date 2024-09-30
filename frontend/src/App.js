@@ -21,6 +21,11 @@ import VenderInventoryManagement from "./components/VenderInventoryManagement";
 import VenderProductManagement from "./components/VenderProductManagement";
 import VenderOrderManagement from "./components/VenderOrderManagement";
 import VendorFeedback from "./components/VendorFeedback";
+import CSRDashboard from "./common/pages/Login/CSRDashboard.jsx"; //csr dashboard
+import CSRManageUsers from "./common/pages/CSR_pages/ManageUsers.jsx";
+import CSRManageOrders from "./common/pages/CSR_pages/ManageOrders.jsx";
+import CSRViewVendorsProducts from "./common/pages/CSR_pages/ViewVendorsProducts.jsx";
+import TrackDeliveries from "./common/pages/CSR_pages/TrackDeliveries.jsx";
 
 function App() {
   return (
@@ -100,13 +105,62 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/vendor/dashboard/products" element={<VenderProductManagement />} />
+          <Route
+            path="/vendor/dashboard/products"
+            element={<VenderProductManagement />}
+          />
           <Route
             path="/vendor/dashboard/inventory"
             element={<VenderInventoryManagement />}
           />
-          <Route path="/vendor/dashboard/orders" element={<VenderOrderManagement />} />
-          <Route path="/vendor/dashboard/feedback" element={<VendorFeedback />} />
+          <Route
+            path="/vendor/dashboard/orders"
+            element={<VenderOrderManagement />}
+          />
+          <Route
+            path="/vendor/dashboard/feedback"
+            element={<VendorFeedback />}
+          />
+          <Route
+            path="/csr/dashboard"
+            element={
+              <ProtectedRoute>
+                <CSRDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/csr/manage-users"
+            element={
+              <ProtectedRoute>
+                <CSRManageUsers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/csr/manage-orders"
+            element={
+              <ProtectedRoute>
+                <CSRManageOrders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/csr/manage-vendor-products"
+            element={
+              <ProtectedRoute>
+                <CSRViewVendorsProducts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/csr/manage-deliveries"
+            element={
+              <ProtectedRoute>
+                <TrackDeliveries />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </>
