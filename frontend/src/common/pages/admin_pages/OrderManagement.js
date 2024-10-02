@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NavigationBar from "./nav_bar"; // Import the NavigationBar component
-import "../../styles/order.css"; // Assuming the CSS file is in the same folder structure
+import "../../../styles/order.css"; // Assuming the CSS file is in the same folder structure
 
 const OrderPage = () => {
   // Example state to track orders
