@@ -1,7 +1,7 @@
 // src/components/admin/NavigationBar.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../styles/admin.css"; // Assuming CSS file path
+import "../../../styles/admin.css"; // Assuming CSS file path
 
 const NavigationBar = () => {
   return (
