@@ -63,4 +63,23 @@
     top: -10px;
     left: -10px;
   }
+  .btn-logout {
+    background-color: #0f3460; /* Background color of the button */
+    border: none; /* No border */
+    color: white; /* Color of the icon */
+    padding: 10px; /* Increase padding to make the button larger */
+    border-radius: 50%; /* Make the button circular */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Transition effect */
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center the icon horizontally */
+    align-items: center; /* Center the icon vertically */
+    width: 40px; /* Set a fixed width */
+    height: 40px; /* Set a fixed height */
+  }
+  
+  .btn-logout:hover {
+    background-color: #87eb9d; /* Change background color on hover */
+  }
+  
   

@@ -1,0 +1,147 @@
+/* General page styling */
+.admin-manage-users-page {
+    margin: 20px;
+    font-family: 'Arial', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Section for toggle buttons */
+  .user-action-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .user-action-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .user-action-buttons button.active {
+    background-color: #0056b3;
+  }
+  
+  .user-action-buttons button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Form section styling */
+  .create-user-section,
+  .update-user-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  /* Form group styles */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Button styles */
+  .btn {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #218838;
+  }
+  
+  /* User list section */
+  .user-lists {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  /* Vendor and CSR list styling */
+  .vendor-list,
+  .csr-list {
+    width: 48%;
+  }
+  
+  .vendor-list h4,
+  .csr-list h4 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .vendor-list ul,
+  .csr-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .vendor-list li,
+  .csr-list li {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+  }
+  
+  .vendor-list li:hover,
+  .csr-list li:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .vendor-list li button,
+  .csr-list li button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .vendor-list li button:hover,
+  .csr-list li button:hover {
+    background-color: #c82333;
+  }

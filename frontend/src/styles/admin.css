@@ -1,11 +1,13 @@
 /* AdminDashboard.css */
 .admin-dashboard-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    
+    
+    
+ 
     background-color: #f4f6f8;
+    width: 100%;
   }
+
   
   .admin-dashboard {
     background: #ffffff;
@@ -179,4 +181,62 @@ body {
   .btn-secondary:hover {
     background-color: #27ae60;
   }
-  
+  /* src/styles/admin.css */
+
+/* Style for the header section */
+
+/* Navigation bar styles */
+.admin-navbar {
+  background-color: #07213c; /* Primary color */
+  position: sticky; /* Keep it at the top on scroll */
+  width: 100%; 
+}
+
+.admin-navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem; /* Space between links */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.admin-navbar a {
+  color: white; /* Text color */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Bold text */
+  font-size: 1.2rem; /* Larger font size */
+}
+
+.admin-navbar a:hover {
+  text-decoration: dashed ; /* Underline on hover */
+  color: #add1f4;
+}
+
+/* Style for admin dashboard */
+
+
+.admin-actions {
+  margin-top: 2rem; /* Space above action buttons */
+}
+
+/* Button styles */
+.btn {
+  padding: 0.5rem 1rem; /* Padding for buttons */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer on hover */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Primary button color */
+  color: white; /* Text color */
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Secondary button color */
+  color: white; /* Text color */
+}
+
+.btn:hover {
+  opacity: 0.9; /* Slightly darker on hover */
+}

@@ -10,10 +10,10 @@ import {
 // Import your pages
 import VendorManagementPage from "./common/pages/mock_pages/mock_pg_vendor";
 import InventoryManagementPage_mock from "./common/pages/mock_pages/mock_pg_inventry";
-import ProductManagementPage from "./common/pages/ProductManagementPage";
-import OrderManagement from "./common/pages/OrderManagement";
+import ProductManagementPage from "./common/pages/admin_pages/ProductManagementPage";
+import OrderManagement from "./common/pages/admin_pages/OrderManagement";
 import UserForm from "./common/pages/Login/UserForm";
-import AdminDashboard from "./common/pages/Login/AdminDashboard"; // Admin Dashboard
+import AdminDashboard from "./common/pages/Login/admin/AdminDashboard"; // Admin Dashboard
 import AdminManageUsersPage from "./common/pages/Login/AdminManageUsersPage"; // Import Admin Manage Users Page
 import VendorDashboard from "./common/pages/Login/VendorDashboard"; // Vendor Dashboard
 import ProtectedRoute from "./common/pages/ProtectedRoute"; // ProtectedRoute component
