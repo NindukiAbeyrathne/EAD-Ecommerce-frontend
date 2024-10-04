@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NavigationBar from "./nav_bar"; // Importing the NavigationBar component
+
 import "../../../styles/ProductManagementPage.css"; // Assuming the CSS file is in the same folder structure
 
 const ProductManagementPage = () => {
