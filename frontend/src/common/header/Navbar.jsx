@@ -32,9 +32,9 @@ const Navbar = () => {
             <li>
               <Link to='/admin/manage-users'>Manage Users</Link>
             </li>
-            {/* <li>
-              <Link to='/admin/orders'>Manage Products</Link>
-            </li> */}
+            <li>
+              <Link to='/admin/orders'>Manage Orders</Link>
+            </li>
             <li>
               <Link to='/admin/inventory'>Inventory Management</Link>
             </li>
