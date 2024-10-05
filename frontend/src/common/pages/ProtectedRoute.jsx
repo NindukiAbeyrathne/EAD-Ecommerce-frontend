@@ -1,11 +1,19 @@
-// src/components/ProtectedRoute.jsx
+// common/pages/ProtectedRoute.jsx
+
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const ProtectedRoute = ({ children }) => {
-  const isLoggedIn = localStorage.getItem('isLoggedIn');  // Check if the user is logged in
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
-  return isLoggedIn ? children : <Navigate to="/UserForm" />;  // Redirect to login if not logged in
+  // If not logged in, redirect to UserForm
+  if (!isLoggedIn) {
+    return <Navigate to="/UserForm" />;
+  }
+
+  // If logged in, render the children components (protected routes)
+  return children;
 };
 
 export default ProtectedRoute;

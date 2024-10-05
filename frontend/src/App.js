@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "r
 import Header from "./common/header/Header";
 
 // Import your pages
-import VendorManagementPage from "./common/pages/mock_pages/mock_pg_vendor";
-import InventoryManagementPage_mock from "./common/pages/mock_pages/mock_pg_inventry";
+
+
 import ProductManagementPage from "./common/pages/admin_pages/ProductManagementPage";
 import OrderManagement from "./common/pages/admin_pages/OrderManagement";
 import UserForm from "./common/pages/Login/UserForm";
@@ -76,7 +76,7 @@ const AppWithRouter = () => {
           path="/admin/inventory"
           element={
             <ProtectedRoute>
-              <InventoryManagementPage_mock />
+              {/* <InventoryManagementPage_mock /> */}
             </ProtectedRoute>
           }
         />
@@ -108,7 +108,7 @@ const AppWithRouter = () => {
           path="/vendors"
           element={
             <ProtectedRoute>
-              <VendorManagementPage />
+              {/* <VendorManagementPage /> */}
             </ProtectedRoute>
           }
         />

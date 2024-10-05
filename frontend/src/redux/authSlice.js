@@ -1,4 +1,4 @@
-import {jwtDecode} from 'jwt-decode'; // Correctly import jwtDecode
+import { jwtDecode } from 'jwt-decode';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -11,15 +11,24 @@ const initialState = {
 };
 
 // Async thunk for login
-export const login = createAsyncThunk('auth/login', async (credentials) => {
-  const response = await axios.post('http://localhost:5000/api/auth/login', credentials);
-  return response.data; // Adjust based on your backend response format
+export const login = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
+  try {
+    const response = await axios.post('http://localhost:5000/api/auth/login', credentials);
+    return response.data; // Adjust based on your backend response format
+  } catch (error) {
+    // Pass the error message to the rejected action
+    return rejectWithValue(error.response.data.message || 'Login failed'); // Ensure your backend sends a meaningful message
+  }
 });
 
 // Async thunk for signup
-export const signup = createAsyncThunk('auth/signup', async (userData) => {
-  const response = await axios.post('http://localhost:5000/api/auth/signup', userData);
-  return response.data;
+export const signup = createAsyncThunk('auth/signup', async (userData, { rejectWithValue }) => {
+  try {
+    const response = await axios.post('http://localhost:5000/api/auth/signup', userData);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data.message || 'Signup failed'); // Handle errors similarly
+  }
 });
 
 const authSlice = createSlice({
@@ -36,32 +45,31 @@ const authSlice = createSlice({
     builder
       .addCase(login.pending, (state) => {
         state.loading = true;
-        state.error = null;
+        state.error = null; // Reset error on new login attempt
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
 
         // Decode the token
         const decodedToken = jwtDecode(action.payload.token); // Assuming action.payload.token contains the JWT
-        
+        console.log("Decoded Token:", decodedToken);
 
-        state.user = decodedToken.email; // Assuming the email is included in the token
-        state.role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null; // Extract the role from the decoded token
+        state.role = decodedToken?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null;
         state.isLoggedIn = true;
-
-      
       })
-      
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message; // Get error message from the payload or fallback
       })
       .addCase(signup.fulfilled, (state) => {
         state.loading = false;
         state.error = null; // Reset error on successful signup
+      })
+      .addCase(signup.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || action.error.message; // Handle signup errors similarly
       });
   },
-  
 });
 
 export const { logout } = authSlice.actions;

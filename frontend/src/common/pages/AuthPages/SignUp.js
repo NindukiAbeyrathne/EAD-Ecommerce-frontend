@@ -144,7 +144,7 @@ const SignUpForm = () => {
 
             <div className="text-center mt-3">
               <p>
-                Already have an account? <Link to="/login">Login</Link>
+                Already have an account? <Link to="/UserForm">Login</Link>
               </p>
             </div>
           </div>

@@ -74,12 +74,13 @@
     display: flex; /* Enable flexbox */
     justify-content: center; /* Center the icon horizontally */
     align-items: center; /* Center the icon vertically */
-    width: 40px; /* Set a fixed width */
-    height: 40px; /* Set a fixed height */
+    width: 50px; /* Set a fixed width */
+    height: 50px; /* Set a fixed height */
   }
   
   .btn-logout:hover {
-    background-color: #87eb9d; /* Change background color on hover */
+    background-color: #11d63c; /* Change background color on hover */
+    
   }
   
   

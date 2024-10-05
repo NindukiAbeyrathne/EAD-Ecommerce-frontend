@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux'; // Import useSelector to access Redux state
 import './Navbar.css'; // Link to the CSS file for styling
 
 const Navbar = () => {
   const [MobileMenu, setMobileMenu] = useState(false);
-  const [userRole, setUserRole] = useState(null);
-
-  useEffect(() => {
-    // Retrieve user role from localStorage when component mounts
-    const isAdmin = localStorage.getItem('isAdmin');
-    const isVendor = localStorage.getItem('isVendor');
-    const isCSR = localStorage.getItem('isCSR');
-
-    if (isAdmin) {
-      setUserRole('Administrator');
-    } else if (isVendor) {
-      setUserRole('Vendor');
-    } else if (isCSR) {
-      setUserRole('CSR');
-    }
-  }, []);
+  
+  // Get user role from Redux store
+  const userRole = useSelector((state) => state.auth.role); // Assuming role is stored in auth slice
 
   const renderNavLinks = () => {
     switch (userRole) {
@@ -86,8 +74,7 @@ const Navbar = () => {
     <header className='header'>
       <div className='container d_flex'>
         <div className='categories d_flex'>
-         
-       
+          {/* You can add category links here if needed */}
         </div>
 
         <div className='navlink'>

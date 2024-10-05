@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react'; // Import useState for managing state
 import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { useDispatch, useSelector } from 'react-redux'; // Import useDispatch and useSelector
+import { logout } from '../../redux/authSlice'; // Import the logout action
 import './Head.css'; // Make sure you have CSS for styling
 import logo from '../assets/images/logo.jpg'; 
 
 const Head = () => {
+  const [searchQuery, setSearchQuery] = useState(''); // State for search input
   const navigate = useNavigate(); // Initialize useNavigate
+  const dispatch = useDispatch(); // Initialize useDispatch
+  const products = useSelector((state) => state.products); // Assuming products are stored in Redux
 
   // Function to handle logout
   const handleLogout = () => {
+    // Dispatch the logout action to update the Redux state
+    dispatch(logout());
+
     // Clear user data from localStorage
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('isVendor');
@@ -15,7 +23,21 @@ const Head = () => {
     localStorage.removeItem('isLoggedIn');
 
     // Redirect to login page
-    navigate('/login');
+    navigate('/UserForm');
+  };
+
+  // Function to handle search
+  const handleSearch = () => {
+    if (searchQuery.trim() === '') return; // Prevent empty search
+    const filteredProducts = products.filter(product => 
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    
+    // Navigate to search results page with the filtered products as state
+    navigate('/search', { state: { products: filteredProducts } });
+    
+    // Clear the search input after search
+    setSearchQuery('');
   };
 
   return (
@@ -29,14 +51,19 @@ const Head = () => {
 
           {/* Search Bar */}
           <div className='search-box'>
-            <input type='text' placeholder='Search for products...' />
-            <button type='button'>
+            <input 
+              type='text' 
+              placeholder='Search for products...' 
+              value={searchQuery} // Bind the input value to state
+              onChange={(e) => setSearchQuery(e.target.value)} // Update state on change
+            />
+            <button type='button' onClick={handleSearch}> {/* Call handleSearch on click */}
               <i className='fa fa-search'></i>
             </button>
           </div>
 
           {/* Account and Cart */}
-          <div className='right-icons d_flex'>
+          <div className='right-icons d_flex mb3'>
             {/* Account */}
             <div className='account'>
               <Link to='/account'>
@@ -44,13 +71,7 @@ const Head = () => {
               </Link>
             </div>
 
-            {/* Cart */}
-            <div className='cart'>
-              <Link to='/cart'>
-                <i className='fa fa-shopping-cart'></i>
-                <span className='cart-count'>0</span> {/* Cart item count */}
-              </Link>
-            </div>
+          
 
             {/* Logout Icon */}
             <div className='logout'>
