@@ -1,55 +1,79 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate for redirection and Link for navigation
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import logo from "../../assets/images/logo.jpg"; // Import the company logo
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signup } from "../../../redux/authSlice";
+import { useNavigate, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import logo from "../../assets/images/logo.jpg";
 import cartimg from "../../assets/images/cart.webp";
 
 const SignUpForm = () => {
-  const [email, setEmail] = useState('');         // State to manage email input
-  const [password, setPassword] = useState('');   // State to manage password input
-  const [confirmPassword, setConfirmPassword] = useState(''); // State for confirming password
-  const [role, setRole] = useState('');   // State to manage user role selection
-  const [message, setMessage] = useState('');     // State for feedback messages
-  const navigate = useNavigate();                 // useNavigate hook for redirection
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [name, setName] = useState(""); // Add state for name
+  const [Pnumber, setPnumber] = useState(""); // Add state for name
+  const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // Function to handle form submission
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
-    // Validate password match
     if (password !== confirmPassword) {
-      setMessage('Passwords do not match'); // Set error message for mismatched passwords
+      setMessage("Passwords do not match");
       return;
     }
 
-    // Here, you would typically send the user data to your backend service
     const newUser = {
       email,
-      passwordHash: password, // Ensure this is hashed in the backend
+      passwordHash: password, // Ensure the password field matches your backend expectations
       role,
-      isActive: false,        // Default inactive status
+      isActive: true, // Assuming users are active upon signup
+      name, // Include the name in the new user object
+      Pnumber, // Include the phone number in the new user object
     };
 
-    // Simulate a signup request (Replace with actual API call)
-    console.log('New User:', newUser); // Replace this with your API call
-    setMessage('Signup successful!'); // Simulated success message
-    navigate('/login'); // Redirect to login page after successful signup
+    try {
+      await dispatch(signup(newUser)).unwrap();
+      setMessage("Signup successful!");
+      navigate("/UserForm"); // Redirect to login page after successful signup
+    } catch (error) {
+      setMessage("Signup failed. Please try again.");
+    }
   };
 
   return (
-    <div>
-      {/* Blue ribbon at the top */}
-      <div style={{ backgroundColor: '#0f3460', height: '50px' }}></div>
-
-      {/* Main container for the sign-up form */}
-      <div className="container d-flex justify-content-center align-items-center vh-100">
-        <div className="card d-flex flex-row" style={{ width: '950px', backgroundColor: '#FAF9F6' }}>
+    <div className="container-fluid d-flex flex-column justify-content-between align-items-center vh-100 p-0">
+      <div
+        className="w-100"
+        style={{ backgroundColor: "#0f3460", height: "40px" }}></div>
+      <div className="container d-flex justify-content-center align-items-center flex-grow-1">
+        <div
+          className="card d-flex flex-row"
+          style={{ width: "900px", backgroundColor: "#FAF9F6" }}>
           <div className="col-md-6 p-4">
             <div className="text-center mb-4">
-              <img src={logo} alt="Company Logo" className="mb-3" style={{ width: '150px' }} />
+              <img
+                src={logo}
+                alt="Company Logo"
+                className="mb-3"
+                style={{ width: "150px" }}
+              />
               <h2 className="form-heading">Create Your Account</h2>
             </div>
             <form onSubmit={handleSignUp}>
+              <div className="form-group mb-3">
+                <label>Name</label> {/* New Name Label */}
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)} // Update name state
+                  required
+                />
+              </div>
               <div className="form-group mb-3">
                 <label>Email</label>
                 <input
@@ -57,7 +81,7 @@ const SignUpForm = () => {
                   className="form-control"
                   placeholder="Enter your email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)} // Update email state
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -68,7 +92,7 @@ const SignUpForm = () => {
                   className="form-control"
                   placeholder="Enter your password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)} // Update password state
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
@@ -79,23 +103,36 @@ const SignUpForm = () => {
                   className="form-control"
                   placeholder="Confirm your password"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)} // Update confirm password state
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                 />
               </div>
-              <div className="form-group mb-4">
-                <label>Select Role</label>
+              <div className="form-group mb-3">
+                <label>Phone Number</label> {/* New Phone Number Label */}
+                <input
+                  type="tel" // Use tel input type for phone numbers
+                  className="form-control"
+                  placeholder="Enter your phone number"
+                  value={Pnumber}
+                  onChange={(e) => setPnumber(e.target.value)} // Update phone number state
+                  required
+                />
+              </div>
+
+              <div className="form-group mb-3">
+                <label>Role</label>
                 <select
                   className="form-control"
                   value={role}
-                  onChange={(e) => setRole(e.target.value)} // Update role state
-                  required
-                  style={{ height: '90%' }}
-                >
-                  <option value="select">Select</option>
+                  onChange={(e) => setRole(e.target.value)}
+                  style={{ height: "40px" }}
+                  required>
+                  <option value="" disabled>
+                    Select your role
+                  </option>
                   <option value="Administrator">Administrator</option>
-                  <option value="CSR">CSR Admin</option>
                   <option value="Vendor">Vendor</option>
+                  <option value="CSR">CSR</option>
                 </select>
               </div>
               <button className="btn btn-primary w-100" type="submit">
@@ -103,35 +140,42 @@ const SignUpForm = () => {
               </button>
             </form>
 
-            {message && <p className="alert alert-danger mt-3">{message}</p>}
+            {message && <p className="alert alert-info mt-3">{message}</p>}
 
             <div className="text-center mt-3">
               <p>
-                Already have an account? <Link to="/UserForm">Login</Link>
+                Already have an account? <Link to="/login">Login</Link>
               </p>
             </div>
           </div>
           <div
             className="col-md-6 d-flex flex-column justify-content-center align-items-start p-4"
-            style={{ backgroundColor: '#0f3460', color: 'white' }}
-          >
-            <h3 style={{ color: 'white', fontFamily: '-moz-initial', textAlign: 'center' }}>
-              WELCOME TO OUR COMMUNITY
+            style={{ backgroundColor: "#0f3460", color: "white" }}>
+            <h3
+              style={{
+                color: "white",
+                fontFamily: "-moz-initial",
+                textAlign: "center",
+              }}>
+              JOIN THE COMMUNITY
             </h3>
             <br />
-            <p style={{ color: 'white', fontSize: '100%' }}>
-              <img src={cartimg} alt="image Logo" style={{ width: '430px', height: '450px' }} />
-              <br />
-              <br />
-              Join us today and experience a wide range of products tailored just for you. Sign up now to enjoy
-              exclusive offers, personalized recommendations, and much more!
+            <img
+              src={cartimg}
+              alt="Company Logo"
+              className="mb-3"
+              style={{ width: "410px", height: "450px" }}
+            />
+            <br />
+            <p style={{ color: "white", fontSize: "100%" }}>
+              Enjoy exclusive deals and promotions tailored just for you. Create
+              your account and become part of our vibrant shopping community
+              today!
             </p>
           </div>
         </div>
       </div>
-
-      {/* Blue ribbon at the bottom */}
-      <div style={{ backgroundColor: '#0f3460', height: '50px', marginTop: 'auto' }}></div>
+      <div style={{ backgroundColor: "#0f3460", height: "50px" }}></div>
     </div>
   );
 };
