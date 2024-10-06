@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'; // Import useSelector to access Redux state
+import React, { useState } from 'react';
+import { Link ,useNavigate} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/authSlice';
 import './Navbar.css'; // Link to the CSS file for styling
 
 const Navbar = () => {
   const [MobileMenu, setMobileMenu] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
+  const dispatch = useDispatch(); // Initialize useDispatch
+  const products = useSelector((state) => state.products); // Assuming products are stored in Redux
   
   // Get user role from Redux store
-  const userRole = useSelector((state) => state.auth.role); // Assuming role is stored in auth slice
+  const userRole = useSelector((state) => state.auth.role);
 
   const renderNavLinks = () => {
     switch (userRole) {
@@ -32,13 +36,13 @@ const Navbar = () => {
         return (
           <>
             <li>
-              <Link to='/vendor/dashboard'>Vendor Dashboard</Link>
+              <Link to='/vendor/dashboard'> Home </Link>
             </li>
             <li>
               <Link to='/vendor/orders'>My Orders</Link>
             </li>
             <li>
-              <Link to='/vendor/products'>Manage Products</Link>
+              <Link to='/vendor/dashboard/feedback'>Customer Feedbacks</Link>
             </li>
           </>
         );
@@ -70,11 +74,26 @@ const Navbar = () => {
     }
   };
 
+  const handleLogout = () => {
+    // Dispatch the logout action to update the Redux state
+    dispatch(logout());
+
+    // Clear user data from localStorage
+    localStorage.removeItem('isAdmin');
+    localStorage.removeItem('isVendor');
+    localStorage.removeItem('isCSR');
+    localStorage.removeItem('isLoggedIn');
+
+    // Redirect to login page
+    navigate('/UserForm');
+  };
+
   return (
     <header className='header'>
       <div className='container d_flex'>
-        <div className='categories d_flex'>
-          {/* You can add category links here if needed */}
+        {/* Shop Name */}
+        <div className='shop-name'>
+          <h1>Bella Vie</h1>
         </div>
 
         <div className='navlink'>
@@ -87,6 +106,19 @@ const Navbar = () => {
 
           <button className='toggle' onClick={() => setMobileMenu(!MobileMenu)}>
             {MobileMenu ? <i className='fas fa-times close'></i> : <i className='fas fa-bars open'></i>}
+          </button>
+        </div>
+
+        {/* Icons on the right side */}
+        <div className='nav-icons'>
+          <Link to='/search'>
+            <i className='fas fa-search'></i>
+          </Link>
+          <Link to='/profile'>
+            <i className='fas fa-user-circle'></i>
+          </Link>
+          <button onClick={handleLogout} >
+            <i className='fas fa-sign-out-alt'></i> 
           </button>
         </div>
       </div>

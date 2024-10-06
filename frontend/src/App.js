@@ -1,21 +1,26 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import Header from "./common/header/Header";
 
 // Import your pages
 
-
 import ProductManagementPage from "./common/pages/admin_pages/ProductManagementPage";
 import OrderManagement from "./common/pages/admin_pages/OrderManagement";
 import UserForm from "./common/pages/Login/UserForm";
-import AdminDashboard from "./common/pages/Login/admin/AdminDashboard"; // Admin Dashboard
-import AdminManageUsersPage from "./common/pages/Login/AdminManageUsersPage"; // Import Admin Manage Users Page
-import VendorDashboard from "./common/pages/Login/VendorDashboard"; // Vendor Dashboard
+import AdminDashboard from "./common/pages/admin_pages/AdminDashboard.jsx"; // Admin Dashboard
+import AdminManageUsersPage from "./common/pages/admin_pages/AdminManageUsersPage.jsx"; // Import Admin Manage Users Page
+import VendorDashboard from "./common/pages/vendor_pages/VendorDashboard.jsx"; // Vendor Dashboard
 import ProtectedRoute from "./common/pages/ProtectedRoute"; // ProtectedRoute component
 import VenderInventoryManagement from "./components/VenderInventoryManagement";
 import VenderProductManagement from "./components/VenderProductManagement";
 import VenderOrderManagement from "./components/VenderOrderManagement";
-import VendorFeedback from "./components/VendorFeedback";
+import VendorFeedback from "./common/pages/vendor_pages/VendorFeedback.jsx";
 import CSRDashboard from "./common/pages/Login/CSRDashboard.jsx"; // CSR dashboard
 import CSRManageUsers from "./common/pages/CSR_pages/ManageUsers.jsx";
 import CSRManageOrders from "./common/pages/CSR_pages/ManageOrders.jsx";
@@ -45,8 +50,8 @@ const AppWithRouter = () => {
   return (
     <>
       {/* Conditionally render Header except for UserForm route */}
-      {currentPath !== "/UserForm" && currentPath!== "/signup" && <Header />}
-      
+      {currentPath !== "/UserForm" && currentPath !== "/signup" && <Header />}
+
       <Routes>
         {/* Redirect root to the UserForm */}
         <Route path="/" element={<Navigate to="/UserForm" />} />
@@ -107,9 +112,7 @@ const AppWithRouter = () => {
         <Route
           path="/vendors"
           element={
-            <ProtectedRoute>
-              {/* <VendorManagementPage /> */}
-            </ProtectedRoute>
+            <ProtectedRoute>{/* <VendorManagementPage /> */}</ProtectedRoute>
           }
         />
         <Route
@@ -132,10 +135,7 @@ const AppWithRouter = () => {
           path="/vendor/dashboard/orders"
           element={<VenderOrderManagement />}
         />
-        <Route
-          path="/vendor/dashboard/feedback"
-          element={<VendorFeedback />}
-        />
+        <Route path="/vendor/dashboard/feedback" element={<VendorFeedback />} />
         <Route
           path="/csr/dashboard"
           element={

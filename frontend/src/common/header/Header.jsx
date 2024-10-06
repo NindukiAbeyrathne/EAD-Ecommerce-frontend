@@ -7,6 +7,7 @@ import Navbar from './Navbar'
 const Header = () => {
   return (
     <>
+    <div className='top-head'>Evaluate Your Routine with Best Products</div>
         <Head/>
       
         <Navbar/>

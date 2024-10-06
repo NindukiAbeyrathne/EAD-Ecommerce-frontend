@@ -1,181 +1,129 @@
 /*------head-----------*/
 .head {
-    background-color: #0f3460;
-    padding: 10px 0;
-    color: #fff;
-  }
+  background-color: #f1e9eb; /* Pink background */
+  padding: 10px 0; /* Top and bottom padding */
+  color: #fff; /* Default text color */
+  display: flex; /* Enable flexbox layout */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Space between logo and welcome message */
+}
+.top-head{
+  background-color: #f5d4da;
+  padding: 10px 20px; /* Padding around the header */
+  text-align: center;
+  font-family: Garamond, serif;
+  font-size: large;
+}
 
-  .head i {
-    margin-right: 10px;
-  }
-  .head label {
-    margin-right: 30px;
-    font-size: 13px;
-  }
-  /*------head-----------*/
+.logo {
+  margin-left: 20px; /* Margin for logo */
+}
 
-  /*------search-----------*/
-.search {
-    padding: 20px 0;
-  }
-  .search .logo img {
-    width: auto;
-    height: auto;
-  }
-  .search .width {
-    width: 20%;
-  }
-  .search-box {
-    width: 80%;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    /*padding: 10px;*/
-    border-radius: 50px;
-  }
-  .search-box i {
-    width: 5%;
-    text-align: center;
-    font-size: 20px;
-    opacity: 0.5;
-    padding: 15px 20px;
-    font-size: 17px;
-  }
-  .search-box input {
-    width: 100%;
-    padding: 10px;
-  }
-  ::placeholder {
-    font-size: 15px;
-  }
-  .search-box span {
-    width: 20%;
-    opacity: 0.5;
-    border-left: 2px solid rgba(0, 0, 0, 0.1);
-    padding: 10px;
-  }
-  .cart {
-    position: relative;
-  }
-  .search .cart span {
-    position: absolute;
-    top: -10px;
-    right: 0px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    text-align: center;
-    background-color: #e94560;
-    font-size: 12px;
-    color: #fff;
-  }
-  .search .f_flex {
-    justify-content: end;
-  }
-  /*------search-----------*/
+.welcome-message {
+  flex: 1; /* Allow this to take up available space */
+  font-size: 5rem; /* Increase font size */
+  color: #3b3a3b; /* Set color for the message */
+  font-family: Garamond, serif; /* Use sans-serif font */
+  text-align: center; /* Center the text */
+  margin: 0; /* Remove margin */
+}
 
-  .catgrories {
-    background-color: #f6f9fc;
-    padding: 0px 30px;
-    border-radius: 5px;
-    height: 6vh;
-    margin-top: 5px;
-  }
-  .catgrories span {
-    margin-right: 20px;
-    font-size: 30px;
-    margin-top: 10px;
-  }
-  .catgrories h4 {
-    font-weight: 500;
-    margin-top: 12px;
-  }
-  .catgrories h4 i {
-    margin-left: 10px;
-  }
 
-  header {
-    height: 8vh;
-    box-shadow: -1px 15px 17px -8px rgba(0, 0, 0, 0.1);
-  }
-  header ul {
-    line-height: 8vh;
-  }
-  header ul li {
-    margin-left: 30px;
-  }
-  header ul li a {
-    transition: 0.5s;
-    font-size: 15px;
-    font-weight: 400;
-  }
-  header ul li a:hover {
-    color: #ff014f;
-  }
+/* Other existing styles */
+.head i {
+  margin-right: 10px;
+}
 
-  .open {
-    display: none;
-  }
-  .search.active {
-    height: 12vh;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: -1px 11px 24px -11px rgba(0, 0, 0, 0.2);
-    transition: 0.5s;
-  }
+.head label {
+  margin-right: 30px;
+  font-size: 13px;
+}
 
-  
+header {
+  height: 8vh; /* Header height */
+  box-shadow: -1px 15px 17px -8px rgba(0, 0, 0, 0.1); /* Box shadow */
+}
+
+header ul {
+  line-height: 8vh; /* Line height for list items */
+}
+
+header ul li {
+  margin-left: 30px; /* Margin left for list items */
+}
+
+header ul li a {
+  transition: 0.5s; /* Transition effect */
+  font-size: 15px; /* Font size */
+  font-weight: 400; /* Font weight */
+}
+
+header ul li a:hover {
+  color: #ff014f; /* Hover color */
+}
+
+.open {
+  display: none; /* Hidden by default */
+}
+
+
+
 @media (max-width: 768px) {
-    header ul {
-      padding-top: 30px;
-    }
-    .nav-links-mobile {
-      position: absolute;
-      display: block;
-      list-style: none;
-      box-shadow: rgba(50, 50, 93, 0.23) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-      left: 0;
-      top: 0;
-      transition: all 0.5s ease-in-out;
-      width: 60%;
-      height: 100vh;
-      background-color: white;
-      z-index: 888;
-    }
-    header ul li {
-      width: 100%;
-      transition: all 0.5s ease-in-out;
-      text-transform: uppercase;
-      line-height: 70px;
-    }
-    header .link {
-      display: none;
-    }
-    .close,
-    .open {
-      position: absolute;
-      top: 35px;
-      right: 20px;
-      color: #ff014f;
-      display: block;
-      font-size: 25px;
-      z-index: 999;
-    }
-    .close {
-      right: 45%;
-    }
-    .close.home-btn {
-      background: linear-gradient(145deg, #e2e8ec, #ffffff);
-      color: #ff014f;
-      border-radius: 50%;
-      padding: 0;
-      width: 60px;
-      height: 60px;
-      line-height: 60px;
-    }
-    .header.active {
-      height: 10vh;
-    }
- 
+  header ul {
+      padding-top: 30px; /* Padding for mobile */
   }
+
+  .nav-links-mobile {
+      position: absolute; /* Absolute positioning */
+      display: block; /* Block display */
+      list-style: none; /* Remove list style */
+      box-shadow: rgba(50, 50, 93, 0.23) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px; /* Box shadow */
+      left: 0; /* Align to left */
+      top: 0; /* Align to top */
+      transition: all 0.5s ease-in-out; /* Transition effect */
+      width: 60%; /* Mobile width */
+      height: 100vh; /* Full height */
+      background-color: white; /* Background color */
+      z-index: 888; /* Z-index for layering */
+  }
+
+  header ul li {
+      width: 100%; /* Full width for list items */
+      transition: all 0.5s ease-in-out; /* Transition effect */
+      text-transform: uppercase; /* Uppercase text */
+      line-height: 70px; /* Line height for mobile */
+  }
+
+  header .link {
+      display: none; /* Hide link */
+  }
+
+  .close,
+  .open {
+      position: absolute; /* Absolute positioning */
+      top: 35px; /* Position from top */
+      right: 20px; /* Position from right */
+      color: #ff014f; /* Color */
+      display: block; /* Block display */
+      font-size: 25px; /* Font size */
+      z-index: 999; /* Z-index for layering */
+  }
+
+  .close {
+      right: 45%; /* Position close button */
+  }
+
+  .close.home-btn {
+      background: linear-gradient(145deg, #e2e8ec, #ffffff); /* Gradient background */
+      color: #ff014f; /* Color */
+      border-radius: 50%; /* Rounded corners */
+      padding: 0; /* No padding */
+      width: 60px; /* Width */
+      height: 60px; /* Height */
+      line-height: 60px; /* Line height */
+  }
+
+  .header.active {
+      height: 10vh; /* Height adjustment */
+  }
+}
