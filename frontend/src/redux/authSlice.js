@@ -5,6 +5,7 @@ import axios from 'axios';
 const initialState = {
   user: null,
   role: null,
+  id: null,
   isLoggedIn: false,
   loading: false,
   error: null,
@@ -36,6 +37,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout(state) {
+      state.id = null;
       state.user = null;
       state.role = null;
       state.isLoggedIn = false;
@@ -54,6 +56,7 @@ const authSlice = createSlice({
         const decodedToken = jwtDecode(action.payload.token); // Assuming action.payload.token contains the JWT
         console.log("Decoded Token:", decodedToken);
 
+        state.id = decodedToken?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] || null;
         state.role = decodedToken?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || null;
         state.isLoggedIn = true;
       })

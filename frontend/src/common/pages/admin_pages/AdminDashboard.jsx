@@ -1,9 +1,9 @@
 // src/components/AdminDashboard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ProductManagemant from "../../admin_pages/ProductManagementPage";
+import ProductManagemant from "./ProductManagementPage";
 
-import '../../../../styles/admin.css'; // Ensure this CSS file exists
+import '../../../styles/admin.css'; // Ensure this CSS file exists
 
 const AdminDashboard = () => {
   return (
