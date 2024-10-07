@@ -1,0 +1,93 @@
+/* Notification Page Container */
+.notification-page {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Page Title */
+  .page-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Loading Message */
+  .loading-message,
+  .error-message,
+  .no-notifications {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    margin-top: 20px;
+  }
+  
+  /* Notification List */
+  .notification-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Individual Notification Item */
+  .notification-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .notification-item:hover {
+    background-color: #e9e9e9;
+  }
+  
+  /* Notification Icon */
+  .notification-icon {
+    flex-shrink: 0;
+    font-size: 24px;
+    color: #f0932b;
+    margin-right: 15px;
+  }
+  
+  /* Notification Content */
+  .notification-content {
+    flex-grow: 1;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Notification Time */
+  .notification-time {
+    font-size: 12px;
+    color: #888;
+  }
+  
+  /* Responsive Design for smaller screens */
+  @media (max-width: 768px) {
+    .notification-page {
+      padding: 15px;
+    }
+  
+    .notification-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .notification-icon {
+      margin-bottom: 10px;
+    }
+  
+    .notification-time {
+      margin-top: 10px;
+    }
+  }
+  

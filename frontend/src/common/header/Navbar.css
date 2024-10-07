@@ -1,120 +1,126 @@
 .header {
-  background-color: #f5d4da; /* Background color for the header */
-  padding: 8px 10px; /* Padding for spacing */
-  color: #f6efef; /* White text color */
-  font-family: Garamond, serif;
-  font-size: 50%;
-  display: flex; /* Flexbox layout */
-  justify-content: space-between; /* Space between categories and navigation */
-  align-items: center; /* Center items vertically */
-  position: sticky; /* Stick to the top */
-  top: 0; /* Stick to the top of the viewport */
-  z-index: 1000; /* Ensure it is above other elements */
-}
-
-.shop-name {
-  flex: 1; /* Allow space to expand */
-  overflow: hidden; /* Prevent overflow of text */
-  text-overflow: ellipsis; /* Show ellipsis for overflow */
-  white-space: nowrap; /* Prevent line breaks */
+  background-color: #ffffff; /* Clean, white background */
+  padding: 15px 30px; /* Padding for comfortable spacing */
+  color: #333333; /* Darker text color for contrast */
+  font-family: 'Helvetica Neue', sans-serif; /* Modern, clean font */
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea; /* Subtle bottom border for separation */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
 }
 
 .shop-name h1 {
-  font-size: 3rem; /* Adjust the size of the shop name */
-  margin: 0; /* Remove default margin */
-  color: #0c0c0c; /* Color of the shop name */
-  font-family: Garamond, serif; /* Bold font for emphasis */
+  font-size: 1.8rem; /* Refined font size */
+  margin: 0;
+  color: #333333; /* Consistent dark color */
+  font-weight: 700; /* Bold to emphasize the brand */
+  font-family: 'Montserrat', sans-serif; /* Clean, professional font */
 }
 
 .navlink {
-  flex: 2; /* Allow space for navigation links */
-  display: flex; /* Ensure nav links are in flexbox */
-  justify-content: center; /* Center navigation links */
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .navlink ul {
-  display: flex; /* Flexbox for horizontal navigation */
-  justify-content: center; /* Center navigation links */
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-  list-style: none; /* Remove bullet points */
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .navlink ul li {
-  margin: 0 10px; /* Reduced space between links */
+  margin: 0 20px; /* Adequate spacing between links */
 }
 
 .navlink ul li a {
-  color: #000; /* Change link color to black */
-  text-decoration: none; /* Remove underline */
-  font-weight: 700; /* Font weight for links */
-  padding: 5px 10px; /* Reduced padding inside links */
-  border-radius: 5px; /* Rounded corners */
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
-  font-size: 1.4rem; /* Increase font size for links */
+  color: #555555; /* Muted link color for modern look */
+  text-decoration: none;
+  font-weight: 600; /* Medium weight for links */
+  padding: 8px 16px; /* Comfortable padding */
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1rem; /* Refined, consistent font size */
+}
+
+.navlink ul li a:hover {
+  color: #f5d4da; /* White text on hover */
 }
 
 .nav-icons {
-  display: flex; /* Flexbox layout for icons */
-  align-items: center; /* Center icons vertically */
-  margin-left: auto; /* Push icons to the far right */
+  display: flex;
+  align-items: center;
 }
 
 .nav-icons a,
 .nav-icons button {
-  color: #0f0e0e; /* Icon color */
-  margin-left: 2px; /* Space between icons */
-  font-size: 1.8rem; /* Adjust icon size to a standard e-commerce size */
-  background: none; /* Remove button background */
-  border: none; /* Remove button border */
-  cursor: pointer; /* Change cursor on hover */
-  
-}
-
-
-.nav-icons a:hover,
-.nav-icons button:hover {
-  color: #e94560; /* Change icon color on hover */
-}
-
-/* Toggle Button for Mobile */
-.toggle {
-  display: none; /* Hide toggle button on larger screens */
-  background-color: transparent;
+  color: #666666; /* Subtle icon color */
+  margin-left: 20px; /* Spacing between icons */
+  font-size: 1.4rem; /* Slightly smaller icon size for balance */
+  background: none;
   border: none;
-  color: #fff;
-  font-size: 24px;
   cursor: pointer;
 }
 
-.close,
-.open {
-  font-size: 24px;
-  color: #fff;
+.nav-icons a:hover,
+.nav-icons button:hover {
+  color: #f5d4da; /* Blue on hover for consistency */
 }
 
-/* Mobile Navigation Styles */
+.notification-icon {
+  position: relative;
+}
+
+.notification-icon .notification-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #e94560; /* Professional red for alerts */
+  color: white;
+  padding: 2px 8px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+}
+
+.toggle {
+  display: none;
+  background-color: transparent;
+  border: none;
+  color: #333333;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Mobile Navigation */
 @media (max-width: 768px) {
   .navlink ul {
-    display: none; /* Hide navigation on smaller screens */
+    display: none;
   }
 
   .navlink ul.nav-links-MobileMenu {
-    display: flex; /* Flexbox for mobile navigation */
-    flex-direction: column; /* Stack links vertically */
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 60px;
-    right: 0;
-    background-color: #0f3460; /* Background for mobile menu */
-    padding: 20px;
+    right: 20px;
+    background-color: #ffffff;
+    padding: 15px 20px;
     border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
   }
 
   .navlink ul.nav-links-MobileMenu li {
-    margin: 10px 0; /* Space between links in mobile view */
+    margin: 10px 0; /* More spacing in mobile view */
   }
 
   .toggle {
-    display: block; /* Show toggle button on smaller screens */
+    display: block;
   }
 }

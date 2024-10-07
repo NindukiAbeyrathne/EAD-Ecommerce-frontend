@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { Link ,useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/authSlice';
 import './Navbar.css'; // Link to the CSS file for styling
 
 const Navbar = () => {
   const [MobileMenu, setMobileMenu] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate
-  const dispatch = useDispatch(); // Initialize useDispatch
-  const products = useSelector((state) => state.products); // Assuming products are stored in Redux
-  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // Get user role from Redux store
   const userRole = useSelector((state) => state.auth.role);
 
@@ -19,7 +18,7 @@ const Navbar = () => {
         return (
           <>
             <li>
-              <Link to='/admin/dashboard'> Home</Link>
+              <Link to='/admin/dashboard'>Home</Link>
             </li>
             <li>
               <Link to='/admin/manage-users'>Manage Users</Link>
@@ -27,22 +26,19 @@ const Navbar = () => {
             <li>
               <Link to='/admin/orders'>Manage Orders</Link>
             </li>
-            <li>
-              <Link to='/admin/inventory'>Inventory Management</Link>
-            </li>
           </>
         );
       case 'Vendor':
         return (
           <>
             <li>
-              <Link to='/vendor/dashboard'> Home </Link>
+              <Link to='/vendor/dashboard'>Home</Link>
             </li>
             <li>
               <Link to='/vendor/orders'>My Orders</Link>
             </li>
             <li>
-              <Link to='/vendor/dashboard/feedback'>Customer Feedbacks</Link>
+              <Link to='/vendor/dashboard/feedback'>Customer Feedback</Link>
             </li>
           </>
         );
@@ -75,23 +71,15 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    // Dispatch the logout action to update the Redux state
     dispatch(logout());
-
-    // Clear user data from localStorage
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('isVendor');
-    localStorage.removeItem('isCSR');
-    localStorage.removeItem('isLoggedIn');
-
-    // Redirect to login page
+    localStorage.clear(); // Clear local storage on logout
     navigate('/UserForm');
   };
 
   return (
     <header className='header'>
       <div className='container d_flex'>
-        {/* Shop Name */}
+        {/* Logo/Shop Name */}
         <div className='shop-name'>
           <h1>Bella Vie</h1>
         </div>
@@ -109,16 +97,20 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Icons on the right side */}
+        {/* Icons for Notifications, Profile, and Logout */}
         <div className='nav-icons'>
-          <Link to='/search'>
-            <i className='fas fa-search'></i>
-          </Link>
+          {userRole === 'Vendor' && (
+            <div className='notification-icon'>
+              <Link to='/vendor/notifications'>
+                <i className='fas fa-bell'></i>
+              </Link>
+            </div>
+          )}
           <Link to='/profile'>
             <i className='fas fa-user-circle'></i>
           </Link>
-          <button onClick={handleLogout} >
-            <i className='fas fa-sign-out-alt'></i> 
+          <button className='logout-button' onClick={handleLogout}>
+            <i className='fas fa-sign-out-alt'></i>
           </button>
         </div>
       </div>

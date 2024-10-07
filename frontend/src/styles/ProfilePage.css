@@ -1,0 +1,98 @@
+/* Container for the profile page */
+.profile-page {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title Styling */
+  .profile-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+  }
+  
+  /* Form Group */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #fff;
+  }
+  
+  /* Buttons */
+  .btn-update {
+    width: 100%;
+    background-color: #f7d0e8bd;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-update:hover {
+    background-color: #eab1d4;
+  }
+  
+  .btn-deactivate {
+    width: 100%;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-deactivate:hover {
+    background-color: #c82333;
+  }
+  
+  /* Error and Success Messages */
+  .error-message, .success-message {
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .success-message {
+    background-color: #d4edda;
+    color: #297a3c;
+  }
+  
+  /* Loading Spinner */
+  .loading {
+    text-align: center;
+    font-size: 20px;
+  }
+  

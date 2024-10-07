@@ -1,45 +1,57 @@
 import React, { useState, useEffect } from "react";
-
-import "../../../styles/ProductManagementPage.css"; // Assuming the CSS file is in the same folder structure
+import { useNavigate } from "react-router-dom";
+import "../../../styles/ProductManagementPage.css"; // Assuming you have your CSS styles here
 
 const ProductManagementPage = () => {
-  // State to track products
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch products from the backend
+  const navigate = useNavigate();
+
+  // Fetch products and vendor stocks from the backend
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchProductsAndStocks = async () => {
       try {
-        const token = localStorage.getItem("token"); // Or use any method to retrieve the JWT token
-        console.log("token",token)
-        const response = await fetch(
-          "http://localhost:5000/api/products/vendor",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
-            },
-          }
-        );
-        console.log("Response", response);
-        if (!response.ok) {
+        const token = localStorage.getItem("token");
+
+        // Fetch Products
+        const productsResponse = await fetch("http://localhost:5000/api/products/vendor", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!productsResponse.ok) {
           throw new Error("Failed to fetch products");
         }
+        const productsData = await productsResponse.json();
 
-        const data = await response.json();
+        // Fetch Vendor Stocks
+        const stocksResponse = await fetch("http://localhost:5000/api/inventory/vendor/stocks", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!stocksResponse.ok) {
+          throw new Error("Failed to fetch vendor stocks");
+        }
+        const stocksData = await stocksResponse.json();
 
-        // Map the data to extract only the required fields
-        const filteredProducts = data.map((product) => ({
-          id: product.id,
-          image: product.imageUrl,
-          name: product.name,
-          category: product.category,
-          vendorId: product.vendorId,
-          price: product.price,
-          isActive: product.isActive,
-        }));
-        setProducts(filteredProducts); // Set the filtered products
+        const mergedData = productsData.map((product) => {
+          const stock = stocksData.vendorStocks.find((s) => s.productId === product.id) || {
+            availableQuantity: 0,
+            reservedQuantity: 0,
+            notifications: [],
+          };
+          return {
+            ...product,
+            availableQuantity: stock.availableQuantity,
+            reservedQuantity: stock.reservedQuantity,
+            notifications: stock.notifications,
+          };
+        });
+
+        setProducts(mergedData);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -47,7 +59,7 @@ const ProductManagementPage = () => {
       }
     };
 
-    fetchProducts();
+    fetchProductsAndStocks();
   }, []);
 
   const toggleActivation = async (productId) => {
@@ -62,7 +74,7 @@ const ProductManagementPage = () => {
         {
           method: "PUT",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token for the activation/deactivation requests
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -71,9 +83,7 @@ const ProductManagementPage = () => {
       }
       setProducts(
         products.map((product) =>
-          product.id === productId
-            ? { ...product, isActive: newStatus }
-            : product
+          product.id === productId ? { ...product, isActive: newStatus } : product
         )
       );
     } catch (err) {
@@ -81,9 +91,36 @@ const ProductManagementPage = () => {
     }
   };
 
-  const handleOperationsClick = (product) => {
-    product.showDetails = !product.showDetails; // Toggle visibility of product details
-    setProducts([...products]); // Update state to trigger re-render
+  const handleAddProductClick = () => {
+    navigate("/add-product");
+  };
+
+  const handleEditProduct = (productId) => {
+    navigate(`/edit-product/${productId}`);
+  };
+
+  const deleteProduct = async (productId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+    if (!confirmDelete) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete product");
+      }
+
+      // Remove the deleted product from the state
+      setProducts(products.filter((product) => product.id !== productId));
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   if (loading) return <div>Loading...</div>;
@@ -92,75 +129,71 @@ const ProductManagementPage = () => {
   return (
     <div className="product-management-page">
       <div className="product-management-card">
-        <h2>Product Management</h2>
-        <br />
 
-        <div className="product-cards">
-          {products.map((product) => (
-            <div className="product-card" key={product.id}>
-              <img
-                src={product.image}
-                alt={product.name}
-                onError={(e) => {
-                  e.target.onerror = null; // Prevent looping
-                  e.target.src = "https://via.placeholder.com/100"; // Fallback image
-                }}
-                className="product-image"
-              />
-              <h3>{product.name}</h3>
-              <p>Category: {product.category}</p>
-              <p>Vendor ID: {product.vendorId}</p>
-              <p>Price: ${product.price}</p>
-              <p>Status: {product.isActive ? "Active" : "Inactive"}</p>
-              <button
-                className="btn-operations"
-                onClick={() => handleOperationsClick(product)}>
-                Operations
-              </button>
+        <button
+          className="btn btn-primary"
+          onClick={handleAddProductClick}
+          style={{ marginBottom: "20px" }}
+        >
+          Add Product
+        </button>
 
-              {product.showDetails && ( // Show details below the card if clicked
-                <div className="product-details">
-                  <h3>Product Details</h3>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="product-image"
-                    style={{ marginBottom: "10px" }}
-                  />
-                  <p>
-                    <strong>Name:</strong> {product.name}
-                  </p>
-                  <p>
-                    <strong>Category:</strong> {product.category}
-                  </p>
-                  <p>
-                    <strong>Vendor ID:</strong> {product.vendorId}
-                  </p>
-                  <p>
-                    <strong>Price:</strong> ${product.price}
-                  </p>
-                  <p>
-                    <strong>Status:</strong>{" "}
-                    {product.isActive ? "Active" : "Inactive"}
-                  </p>
-                  <button
-                    onClick={() => toggleActivation(product.id)}
-                    className={`btn-detail-activation ${
-                      product.isActive ? "active" : "inactive"
-                    }`}>
-                    {product.isActive ? "Deactivate" : "Activate"}
-                  </button>
-                  <button
-                    onClick={() => handleOperationsClick(product)}
-                    className="btn-operations"
-                    style={{ marginTop: "10px" }}>
-                    Close
-                  </button>{" "}
-                  {/* Button to close the details */}
-                </div>
-              )}
-            </div>
-          ))}
+        <div className="table-responsive">
+          <table className="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Available Quantity</th>
+                <th>Reserved Quantity</th>
+                <th>Status</th>
+                <th>Operations</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td>
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://via.placeholder.com/100";
+                      }}
+                    />
+                  </td>
+                  <td>{product.name}</td>
+                  <td>{product.category}</td>
+                  <td>{product.description}</td>
+                  <td>${product.price}</td>
+                  <td>{product.availableQuantity}</td>
+                  <td>{product.reservedQuantity}</td>
+                  <td>{product.isActive ? "Active" : "Inactive"}</td>
+                  <td>
+                    <button
+                      className="btn btn-info btn-sm"
+                      onClick={() => handleEditProduct(product.id)}
+                      style={{ marginRight: "10px" }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => deleteProduct(product.id)}
+                      style={{ marginRight: "10px" }}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

@@ -1,0 +1,37 @@
+/* VendorOrderDashboard.css */
+
+.vendor-order-dashboard {
+    padding: 30px;
+  }
+  
+  .order-dashboard-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+  
+  .thead-dark {
+    background-color: #343a40;
+    color: #ffffff;
+  }
+  
+  .table th,
+  .table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  
+  .table {
+    padding: 10px;
+  }
+  
+  

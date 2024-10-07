@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { signup } from "../../../redux/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../assets/images/logo.jpg";
 import cartimg from "../../assets/images/cart.webp";
+import axios from "axios"; // Import axios to handle the API request
 
 const SignUpForm = () => {
   const [email, setEmail] = useState("");
@@ -12,9 +11,8 @@ const SignUpForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("");
   const [name, setName] = useState(""); // Add state for name
-  const [Pnumber, setPnumber] = useState(""); // Add state for name
+  const [Pnumber, setPnumber] = useState(""); // Add state for phone number
   const [message, setMessage] = useState("");
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
@@ -35,8 +33,9 @@ const SignUpForm = () => {
     };
 
     try {
-      await dispatch(signup(newUser)).unwrap();
-      setMessage("Signup successful!");
+      // Send the signup data directly using axios
+      await axios.post("http://localhost:5000/api/auth/signup", newUser);
+      setMessage("Signup successful! Please login.");
       navigate("/UserForm"); // Redirect to login page after successful signup
     } catch (error) {
       setMessage("Signup failed. Please try again.");
@@ -45,32 +44,23 @@ const SignUpForm = () => {
 
   return (
     <div className="container-fluid d-flex flex-column justify-content-between align-items-center vh-100 p-0">
-      <div
-        className="w-100"
-        style={{ backgroundColor: "#0f3460", height: "40px" }}></div>
+      <div className="w-100" style={{ backgroundColor: "#0f3460", height: "40px" }}></div>
       <div className="container d-flex justify-content-center align-items-center flex-grow-1">
-        <div
-          className="card d-flex flex-row"
-          style={{ width: "900px", backgroundColor: "#FAF9F6" }}>
+        <div className="card d-flex flex-row" style={{ width: "900px", backgroundColor: "#FAF9F6" }}>
           <div className="col-md-6 p-4">
             <div className="text-center mb-4">
-              <img
-                src={logo}
-                alt="Company Logo"
-                className="mb-3"
-                style={{ width: "150px" }}
-              />
+              <img src={logo} alt="Company Logo" className="mb-3" style={{ width: "150px" }} />
               <h2 className="form-heading">Create Your Account</h2>
             </div>
             <form onSubmit={handleSignUp}>
               <div className="form-group mb-3">
-                <label>Name</label> {/* New Name Label */}
+                <label>Name</label>
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Enter your name"
                   value={name}
-                  onChange={(e) => setName(e.target.value)} // Update name state
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
@@ -108,17 +98,16 @@ const SignUpForm = () => {
                 />
               </div>
               <div className="form-group mb-3">
-                <label>Phone Number</label> {/* New Phone Number Label */}
+                <label>Phone Number</label>
                 <input
-                  type="tel" // Use tel input type for phone numbers
+                  type="tel"
                   className="form-control"
                   placeholder="Enter your phone number"
                   value={Pnumber}
-                  onChange={(e) => setPnumber(e.target.value)} // Update phone number state
+                  onChange={(e) => setPnumber(e.target.value)}
                   required
                 />
               </div>
-
               <div className="form-group mb-3">
                 <label>Role</label>
                 <select
@@ -126,7 +115,8 @@ const SignUpForm = () => {
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
                   style={{ height: "40px" }}
-                  required>
+                  required
+                >
                   <option value="" disabled>
                     Select your role
                   </option>
@@ -150,13 +140,15 @@ const SignUpForm = () => {
           </div>
           <div
             className="col-md-6 d-flex flex-column justify-content-center align-items-start p-4"
-            style={{ backgroundColor: "#0f3460", color: "white" }}>
+            style={{ backgroundColor: "#0f3460", color: "white" }}
+          >
             <h3
               style={{
                 color: "white",
                 fontFamily: "-moz-initial",
                 textAlign: "center",
-              }}>
+              }}
+            >
               JOIN THE COMMUNITY
             </h3>
             <br />

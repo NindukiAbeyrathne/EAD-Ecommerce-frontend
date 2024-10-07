@@ -1,56 +1,56 @@
 .vendor-feedback-page {
-    max-width: 100%; /* Allow the page to take full width */
-    margin: 0; /* Remove auto margin to stretch to full width */
-    padding: 20px; /* Add padding for overall page spacing */
-  }
-  
-  .vendor-feedback-card {
-    background-color: #fff; /* Set background color */
-    border-radius: 5px; /* Round the corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
-    padding: 20px; /* Add padding inside the card */
-    width: 100%; /* Ensure it uses full width */
-    min-height: 600px; /* Ensure it uses full height */
-  }
-  
-  .vendor-feedback-cards {
-    display: flex;
-    flex-wrap: wrap; /* Wrap to next line when needed */
-    justify-content: space-between; /* Space out the cards */
-  }
-  
-  .vendor-feedback-card-item {
-    flex: 0 1 calc(30% - 20px); /* Adjusted width for responsiveness */
-    margin: 10px; /* Add margin around cards */
-    width: 100%; /* Allow individual items to take full width */
-  }
-  
-  .card {
-    transition: transform 0.3s;
-  }
-  
-  .card:hover {
-    transform: scale(1.05); /* Slightly enlarge card on hover */
-  }
-  
-  .star {
-    font-size: 20px; /* Size of the star */
-    color: lightgray; /* Default star color */
-  }
-  
-  .star.filled {
-    color: gold; /* Color for filled stars */
-  }
-  
-  .rating {
-    margin-bottom: 10px; /* Add space below the stars */
-  }
-  
-  .card-title {
-    font-weight: bold; /* Bold the customer name */
-  }
-  
-  .card-text {
-    line-height: 1.5; /* Improve line height for readability */
-  }
-  
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.vendor-feedback-card {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.vendor-feedback-cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.vendor-feedback-card-item {
+  margin-bottom: 15px;
+}
+
+.card {
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 20px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback-line {
+  margin-bottom: 10px;
+}
+
+.feedback-line strong {
+  margin-right: 5px;
+}
+
+.star {
+  font-size: 18px;
+  color: #ffc107;
+  margin-right: 2px;
+}
+
+.star.filled {
+  color: #ffc107;
+}
+
+.star:not(.filled) {
+  color: #ddd;
+}
+
+.text-muted {
+  color: #6c757d;
+}
+

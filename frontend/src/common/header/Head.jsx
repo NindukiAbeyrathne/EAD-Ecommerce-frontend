@@ -34,7 +34,7 @@ const Head = () => {
       <section className='head'>
         {/* Logo */}
         <div className='logo'>
-          <img src={logo} alt='Organization Logo' /> {/* Organization Logo */}
+          {/* <img src={logo} alt='Organization Logo' /> Organization Logo */}
         </div>
         
         {/* Welcome Message */}

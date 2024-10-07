@@ -1,25 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import '../../../styles/vendor.css'; // Include your custom CSS file
+import '../../../styles/vendor.css'; 
 
 const VendorFeedback = () => {
   const [feedback, setFeedback] = useState([]);
+  const [averageRating, setAverageRating] = useState(null); // New state to store the average rating
   const vendorId = useSelector((state) => state.auth.id); // Access vendorId from Redux state
 
   useEffect(() => {
     const fetchFeedback = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/vendor/${vendorId}/comments`); // Adjust the endpoint as needed
+        const token = localStorage.getItem("token"); // Retrieve the JWT token
+
+        const response = await fetch(`http://localhost:5000/api/vendor/${vendorId}/comments`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+          },
+        });
+
         const data = await response.json();
-        console.log("API Response:", data); // Log the API response for debugging
         setFeedback(data);
       } catch (error) {
         console.error("Error fetching feedback:", error);
       }
     };
 
+    const fetchAverageRating = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Retrieve the JWT token
+
+        const response = await fetch(`http://localhost:5000/api/vendor/${vendorId}/rating`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+          },
+        });
+
+        const data = await response.json();
+        console.log(data.averageRating)
+        setAverageRating(data.averageRating); // Store the average rating in state
+      } catch (error) {
+        console.error("Error fetching average rating:", error);
+      }
+    };
+
     if (vendorId) {
-      fetchFeedback(); // Fetch feedback only if vendorId is available
+      fetchFeedback(); 
+      fetchAverageRating(); // Fetch average rating
     }
   }, [vendorId]);
 
@@ -37,17 +63,30 @@ const VendorFeedback = () => {
   return (
     <div className="vendor-feedback-page">
       <div className="vendor-feedback-card"><br/>
-        <h2 className="text-center mb-4">Customer Feedback</h2>
+        
+        {/* Display the average rating */}
+        <div className="average-rating">
+          <h3>Average Rating: {averageRating ? renderStars(averageRating) : 'N/A'}</h3>
+        </div>
+
         <div className="vendor-feedback-cards">
           {feedback.length > 0 ? (
             feedback.map((item) => (
-              <div key={item.customerId} className="vendor-feedback-card-item"> {/* Adjusted class name for consistency */}
+              <div key={item.customerId} className="vendor-feedback-card-item"> 
                 <div className="card shadow-sm border-light">
                   <div className="card-body">
-                    <h5 className="card-title">Customer Name: {item.customer.name || 'N/A'}</h5>
-                    <div className="rating mb-2">Rating: {renderStars(item.rating)}</div> {/* Render stars */}
-                    <p className="card-text">Feedback from Customer: {item.comment}</p>
-                    <p className="card-text"><small className="text-muted">Email: {item.customer.email || 'N/A'}</small></p>
+                    <div className="feedback-line">
+                      <strong>Customer Name:</strong> {item.customer.name || 'N/A'}
+                    </div>
+                    <div className="feedback-line">
+                      <strong>Rating:</strong> {renderStars(item.rating)}
+                    </div>
+                    <div className="feedback-line">
+                      <strong>Feedback:</strong> {item.comment}
+                    </div>
+                    <div className="feedback-line">
+                      <strong>Email:</strong> {item.customer.email || 'N/A'}
+                    </div>
                   </div>
                 </div>
               </div>

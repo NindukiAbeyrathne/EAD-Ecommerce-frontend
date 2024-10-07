@@ -12,6 +12,7 @@ import Header from "./common/header/Header";
 
 import ProductManagementPage from "./common/pages/admin_pages/ProductManagementPage";
 import OrderManagement from "./common/pages/admin_pages/OrderManagement";
+import VenderOrderManagement from "./common/pages/vendor_pages/VendorOrder.js";
 import UserForm from "./common/pages/Login/UserForm";
 import AdminDashboard from "./common/pages/admin_pages/AdminDashboard.jsx"; // Admin Dashboard
 import AdminManageUsersPage from "./common/pages/admin_pages/AdminManageUsersPage.jsx"; // Import Admin Manage Users Page
@@ -19,7 +20,6 @@ import VendorDashboard from "./common/pages/vendor_pages/VendorDashboard.jsx"; /
 import ProtectedRoute from "./common/pages/ProtectedRoute"; // ProtectedRoute component
 import VenderInventoryManagement from "./components/VenderInventoryManagement";
 import VenderProductManagement from "./components/VenderProductManagement";
-import VenderOrderManagement from "./components/VenderOrderManagement";
 import VendorFeedback from "./common/pages/vendor_pages/VendorFeedback.jsx";
 import CSRDashboard from "./common/pages/Login/CSRDashboard.jsx"; // CSR dashboard
 import CSRManageUsers from "./common/pages/CSR_pages/ManageUsers.jsx";
@@ -27,6 +27,11 @@ import CSRManageOrders from "./common/pages/CSR_pages/ManageOrders.jsx";
 import CSRViewVendorsProducts from "./common/pages/CSR_pages/ViewVendorsProducts.jsx";
 import TrackDeliveries from "./common/pages/CSR_pages/TrackDeliveries.jsx";
 import SignUpForm from "./common/pages/AuthPages/SignUp.js";
+import CreateProductPage from "./common/pages/vendor_pages/CreateProductPage.js";
+import EditProductPage from "./common/pages/vendor_pages/EditProduct.js";
+import NotificationPage from "./common/pages/vendor_pages/VendorNotificationPage.js";
+import ProfilePage from "./common/pages/vendor_pages/Profile.js";
+
 // Custom Hook to get current path
 const usePath = () => {
   const location = useLocation();
@@ -74,6 +79,14 @@ const AppWithRouter = () => {
           element={
             <ProtectedRoute>
               <AdminManageUsersPage />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/add-product"
+          element={
+            <ProtectedRoute>
+              <CreateProductPage />
             </ProtectedRoute>
           }
         />
@@ -132,10 +145,14 @@ const AppWithRouter = () => {
           element={<VenderInventoryManagement />}
         />
         <Route
-          path="/vendor/dashboard/orders"
+          path="/vendor/orders"
           element={<VenderOrderManagement />}
         />
         <Route path="/vendor/dashboard/feedback" element={<VendorFeedback />} />
+        <Route path="/edit-product/:productId" element={<EditProductPage />} />
+        <Route path="/vendor/notifications" element={<NotificationPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+
         <Route
           path="/csr/dashboard"
           element={
