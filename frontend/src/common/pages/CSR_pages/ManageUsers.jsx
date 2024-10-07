@@ -1,88 +1,76 @@
-// src/components/csr/ManageUsers.jsx
-import React, { useState, useEffect } from 'react';
-import   '../../../styles/csr.css'
-// Mock user data for demonstration purposes
-const mockUserData = [
-  { id: 1, name: "John Doe", email: "john@example.com", status: "pending", profile: "Customer" },
-  { id: 2, name: "Jane Smith", email: "jane@example.com", status: "active", profile: "Customer" },
-  { id: 3, name: "Mike Johnson", email: "mike@example.com", status: "deactivated", profile: "Customer" },
-];
+import React, { useState, useEffect } from "react";
+import "../../../styles/csr.css";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Fetch users from the backend
   useEffect(() => {
-    // Normally, you would fetch the users from an API
-    // setUsers(dataFromAPI);
-    setUsers(mockUserData); // Using mock data for now
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/users");
+        if (!response.ok) {
+          throw new Error("Failed to fetch users");
+        }
+        const data = await response.json();
+        setUsers(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
   }, []);
 
-  const approveUser = (id) => {
-    setUsers(users.map(user => 
-      user.id === id ? { ...user, status: 'active' } : user
-    ));
+  const toggleUserActivation = async (userId, isActive) => {
+    const action = isActive ? "deactivate" : "activate";
+    try {
+      const response = await fetch(`http://localhost:5000/api/auth/users/${userId}/${action}`, {
+        method: "PUT",
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to ${action} user`);
+      }
+      // Update the UI
+      setUsers(users.map(user => 
+        user.id === userId ? { ...user, isActive: !isActive } : user
+      ));
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
-  const denyUser = (id) => {
-    setUsers(users.filter(user => user.id !== id));
-  };
-
-  const reactivateUser = (id) => {
-    setUsers(users.map(user => 
-      user.id === id ? { ...user, status: 'active' } : user
-    ));
-  };
-
-  const deactivateUser = (id) => {
-    setUsers(users.map(user => 
-      user.id === id ? { ...user, status: 'deactivated' } : user
-    ));
-  };
-
-  const updateUserProfile = (id, newProfile) => {
-    setUsers(users.map(user => 
-      user.id === id ? { ...user, profile: newProfile } : user
-    ));
-  };
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="manage-users-container">
       <h2>Manage Users</h2>
-      <p>Approve/Deny customer account requests, update profiles, and manage accounts.</p>
+      <p>Activate or deactivate user accounts.</p>
 
       <table className="user-table">
         <thead>
           <tr>
-            <th>Name</th>
             <th>Email</th>
+            <th>Role</th>
             <th>Status</th>
-            <th>Profile</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {users.map(user => (
             <tr key={user.id}>
-              <td>{user.name}</td>
               <td>{user.email}</td>
-              <td>{user.status}</td>
-              <td>{user.profile}</td>
+              <td>{user.role}</td>
+              <td>{user.isActive ? "Active" : "Inactive"}</td>
               <td>
-                {user.status === 'pending' && (
-                  <>
-                    <button onClick={() => approveUser(user.id)}>Approve</button>
-                    <button onClick={() => denyUser(user.id)}>Deny</button>
-                  </>
-                )}
-                {user.status === 'deactivated' && (
-                  <button onClick={() => reactivateUser(user.id)}>Reactivate</button>
-                )}
-                {user.status === 'active' && (
-                  <>
-                    <button onClick={() => deactivateUser(user.id)}>Deactivate</button>
-                    <button onClick={() => updateUserProfile(user.id, 'VIP')}>Upgrade to VIP</button>
-                  </>
-                )}
+                <button onClick={() => toggleUserActivation(user.id, user.isActive)}>
+                  {user.isActive ? "Deactivate" : "Activate"}
+                </button>
               </td>
             </tr>
           ))}
