@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-
-import "../../../styles/ProductManagementPage.css"; // Assuming the CSS file is in the same folder structure
+import "../../../styles/adminProduct.css"; // Assuming the CSS file is in the same folder structure
 
 const ProductManagementPage = () => {
   // State to track products
@@ -72,72 +71,55 @@ const ProductManagementPage = () => {
     );
   };
 
-  const handleOperationsClick = (product) => {
-    product.showDetails = !product.showDetails; // Toggle visibility of product details
-    setProducts([...products]); // Update state to trigger re-render
-  };
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="product-management-page">
-     
 
-      <div className="product-management-card">
-        <h2>Product Management</h2><br/>
-        
-
-        <div className="product-cards">
+      <table className="product-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Vendor ID</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
           {products.map((product) => (
-            <div className="product-card" key={product.id}>
-              <img
-                src={product.image}
-                alt={product.name}
-                onError={(e) => {
-                  e.target.onerror = null; // Prevent looping
-                  e.target.src = "https://via.placeholder.com/100"; // Fallback image
-                }}
-                className="product-image"
-              />
-              <h3>{product.name}</h3>
-              <p>Category: {product.category}</p>
-              <p>Vendor ID: {product.vendorId}</p>
-              <p>Price: ${product.price}</p>
-              <p>Status: {product.isActive ? "Active" : "Inactive"}</p>
-              <button className="btn-operations" onClick={() => handleOperationsClick(product)}>
-                Operations
-              </button>
-
-              {product.showDetails && ( // Show details below the card if clicked
-                <div className="product-details">
-                  <h3>Product Details</h3>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="product-image"
-                    style={{ marginBottom: "10px" }}
-                  />
-                  <p><strong>Name:</strong> {product.name}</p>
-                  <p><strong>Category:</strong> {product.category}</p>
-                  <p><strong>Vendor ID:</strong> {product.vendorId}</p>
-                  <p><strong>Price:</strong> ${product.price}</p>
-                  <p><strong>Status:</strong> {product.isActive ? "Active" : "Inactive"}</p>
-                  <button
-                    onClick={() => toggleActivation(product.id)}
-                    className={`btn-detail-activation ${product.isActive ? "active" : "inactive"}`}
-                  >
-                    {product.isActive ? "Deactivate" : "Activate"}
-                  </button>
-                  <button onClick={() => handleOperationsClick(product)} className="btn-operations" style={{ marginTop: "10px" }}>
-                    Close
-                  </button> {/* Button to close the details */}
-                </div>
-              )}
-            </div>
+            <tr key={product.id}>
+              <td>
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent looping
+                    e.target.src = "https://via.placeholder.com/50"; // Fallback image
+                  }}
+                  className="product-table-image"
+                />
+              </td>
+              <td>{product.name}</td>
+              <td>{product.category}</td>
+              <td>{product.vendorId}</td>
+              <td>${product.price}</td>
+              <td>{product.isActive ? "Active" : "Inactive"}</td>
+              <td>
+                <button
+                  onClick={() => toggleActivation(product.id)}
+                  className={`btn-activation ${product.isActive ? "deactivate" : "activate"}`}
+                >
+                  {product.isActive ? "Deactivate" : "Activate"}
+                </button>
+              </td>
+            </tr>
           ))}
-        </div>
-      </div>
+        </tbody>
+      </table>
     </div>
   );
 };

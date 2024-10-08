@@ -46,13 +46,13 @@ const Navbar = () => {
         return (
           <>
             <li>
-              <Link to='/csr/dashboard'>CSR Dashboard</Link>
+              <Link to='csr/manage-users'>Manage Customers</Link>
             </li>
             <li>
-              <Link to='/csr/support-tickets'>Support Tickets</Link>
+              <Link to='/csr/view-products'>View Products</Link>
             </li>
             <li>
-              <Link to='/csr/reports'>Reports</Link>
+              <Link to='/admin/orders'>Manage Orders</Link>
             </li>
           </>
         );

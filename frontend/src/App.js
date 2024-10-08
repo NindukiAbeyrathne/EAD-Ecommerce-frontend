@@ -31,6 +31,7 @@ import CreateProductPage from "./common/pages/vendor_pages/CreateProductPage.js"
 import EditProductPage from "./common/pages/vendor_pages/EditProduct.js";
 import NotificationPage from "./common/pages/vendor_pages/VendorNotificationPage.js";
 import ProfilePage from "./common/pages/vendor_pages/Profile.js";
+import ViewVendorsProducts from "./common/pages/CSR_pages/ViewVendorsProducts.jsx";
 
 // Custom Hook to get current path
 const usePath = () => {
@@ -151,6 +152,7 @@ const AppWithRouter = () => {
         <Route path="/vendor/dashboard/feedback" element={<VendorFeedback />} />
         <Route path="/edit-product/:productId" element={<EditProductPage />} />
         <Route path="/vendor/notifications" element={<NotificationPage />} />
+        <Route path="/csr/view-products" element={<ViewVendorsProducts />} />
         <Route path="/profile" element={<ProfilePage />} />
 
         <Route

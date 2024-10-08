@@ -1,0 +1,50 @@
+.product-management-page {
+    padding: 20px;
+  }
+  
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .product-table th,
+  .product-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .product-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .product-table-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .btn-activation {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-activation.activate {
+    background-color: #3bdc35; /* Green for activate */
+    color: white;
+  }
+  
+  .btn-activation.deactivate {
+    background-color: #dd3b46; /* Red for deactivate */
+    color: white;
+  }
+  
+  .btn-activation:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  

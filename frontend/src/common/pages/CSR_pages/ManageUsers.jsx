@@ -49,8 +49,6 @@ const ManageUsers = () => {
 
   return (
     <div className="manage-users-container">
-      <h2>Manage Users</h2>
-      <p>Activate or deactivate user accounts.</p>
 
       <table className="user-table">
         <thead>

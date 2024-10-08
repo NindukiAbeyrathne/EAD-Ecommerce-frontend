@@ -6,7 +6,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Ensure this import is pre
 const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
   const [editOrderId, setEditOrderId] = useState(null);
-  const [hoveredOrder, setHoveredOrder] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // New state for error messages
   const [showSuccess, setShowSuccess] = useState(false);
@@ -32,11 +31,6 @@ const ManageOrders = () => {
   }, []);
 
   const saveEditOrder = async (order) => {
-    if (order.status !== "Processing") {
-      alert("You can only update orders with the status 'Processing'.");
-      return;
-    }
-
     try {
       const response = await fetch(
         `http://localhost:5000/api/orders/${order.id}`,
@@ -64,7 +58,7 @@ const ManageOrders = () => {
         orders.map((o) => (o.id === updatedOrder.id ? updatedOrder : o))
       );
       setEditOrderId(null);
-      setSuccessMessage("Order updated successfully!");
+      setSuccessMessage("Order status updated successfully!");
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 3000);
     } catch (error) {
@@ -127,7 +121,7 @@ const ManageOrders = () => {
 
   return (
     <div className="container-fluid mt-5">
-      <h3 className="mb-4 text-center">Order Management</h3>
+
 
       {/* Success Message */}
       {showSuccess && (
@@ -149,218 +143,130 @@ const ManageOrders = () => {
         </div>
       )}
 
-      <div className="row">
-        {orders.map((order) => (
-          <div key={order.id} className="col-md-4 mb-3">
-            <div
-              className={`card order-card ${
-                hoveredOrder === order.id ? "hovered" : ""
-              }`}
-              onMouseEnter={() => setHoveredOrder(order.id)}
-              onMouseLeave={() => setHoveredOrder(null)}>
-              <div className="card-body">
-                <h5 className="card-title text-center">Order ID: {order.id}</h5>
-                <br />
-                {editOrderId === order.id ? (
-                  <div>
-                    <div className="mb-2">
-                      <label className="form-label">Customer ID:</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={order.customerId}
-                        onChange={(e) =>
-                          setOrders(
-                            orders.map((o) =>
-                              o.id === order.id
-                                ? { ...o, customerId: e.target.value }
-                                : o
-                            )
-                          )
-                        }
-                      />
-                    </div>
-
-                    {/* Iterate over items array */}
+      <div className="table-responsive">
+        <table className="table table-bordered">
+          <thead className="thead-dark">
+            <tr>
+              <th>Order ID</th>
+              <th>Customer ID</th>
+              <th>Products</th>
+              <th>Total Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{order.customerId}</td>
+                <td>
+                  <ul>
                     {order.items.map((item, index) => (
-                      <div key={index}>
-                        <div className="mb-2">
-                          <label className="form-label">Product Name:</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={item.productName || ""}
-                            onChange={(e) =>
-                              setOrders(
-                                orders.map((o) =>
-                                  o.id === order.id
-                                    ? {
-                                        ...o,
-                                        items: o.items.map((i, idx) =>
-                                          idx === index
-                                            ? {
-                                                ...i,
-                                                productName: e.target.value,
-                                              }
-                                            : i
-                                        ),
-                                      }
-                                    : o
-                                )
-                              )
-                            }
-                          />
-                        </div>
-                        <div className="mb-2">
-                          <label className="form-label">Quantity:</label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={item.quantity || ""}
-                            onChange={(e) =>
-                              setOrders(
-                                orders.map((o) =>
-                                  o.id === order.id
-                                    ? {
-                                        ...o,
-                                        items: o.items.map((i, idx) =>
-                                          idx === index
-                                            ? { ...i, quantity: e.target.value }
-                                            : i
-                                        ),
-                                      }
-                                    : o
-                                )
-                              )
-                            }
-                          />
-                        </div>
-                        <div className="mb-2">
-                          <label className="form-label">Unit Price:</label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={item.unitPrice || ""}
-                            readOnly // Make it read-only if you don't want to edit this field
-                          />
-                        </div>
-                        <div className="mb-2">
-                          <label className="form-label">Total Price:</label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={item.totalPrice || ""}
-                            readOnly // Make it read-only if you don't want to edit this field
-                          />
-                        </div>
-                      </div>
+                      <li key={index}>
+                        {item.productName} - {item.quantity} pcs
+                      </li>
                     ))}
-
-                    <div className="mb-2">
-                      <label className="form-label">Status:</label>
-                      <select
-                        className="form-select"
-                        value={order.status}
-                        onChange={(e) =>
-                          setOrders(
-                            orders.map((o) =>
-                              o.id === order.id
-                                ? { ...o, status: e.target.value }
-                                : o
-                            )
+                  </ul>
+                </td>
+                <td>${order.totalPrice}</td>
+                <td>
+                  {editOrderId === order.id ? (
+                    <select
+                      className="form-select"
+                      value={order.status}
+                      onChange={(e) =>
+                        setOrders(
+                          orders.map((o) =>
+                            o.id === order.id
+                              ? { ...o, status: e.target.value }
+                              : o
                           )
-                        }>
-                        <option value="Processing">Processing</option>
-                        <option value="Dispatched">Dispatched</option>
-                        <option value="Delivered">Delivered</option>
-                        <option value="Cancelled">Cancelled</option>
-                      </select>
+                        )
+                      }>
+                      <option value="Processing">Processing</option>
+                      <option value="Dispatched">Dispatched</option>
+                      <option value="Delivered">Delivered</option>
+                      <option value="Cancelled">Cancelled</option>
+                    </select>
+                  ) : (
+                    order.status
+                  )}
+                </td>
+                <td>
+                  {editOrderId === order.id ? (
+                    <div>
+                      <button
+                        className="btn btn-success mb-2"
+                        onClick={() => saveEditOrder(order)}>
+                        Save
+                      </button>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => setEditOrderId(null)}>
+                        Cancel
+                      </button>
                     </div>
-                    <button
-                      className="btn btn-success w-100"
-                      onClick={() => saveEditOrder(order)}>
-                      Save Changes
-                    </button>
-                  </div>
-                ) : (
-                  <div>
-                    <p className="card-text">Customer ID: {order.customerId}</p>
-                    {order.items.map((item, index) => (
-                      <p key={index} className="card-text">
-                        Product Name: {item.productName} <br />
-                        Quantity: {item.quantity}
-                      </p>
-                    ))}
-
-                    <p className="card-text">
-                      Total Price: ${order.totalPrice}
-                    </p>
-                    <p className="card-text">Status: {order.status}</p>
-
-                    {order.status === "Processing" ? (
-                      <>
+                  ) : (
+                    <>
+                      <button
+                        className="btn btn-primary mb-2"
+                        onClick={() => setEditOrderId(order.id)}>
+                        Edit Status
+                      </button>
+                      {order.status === "Processing" && (
                         <button
-                          className="btn btn-primary w-100 mb-2"
-                          onClick={() => setEditOrderId(order.id)}>
-                          Edit Order
-                        </button>
-                        <button
-                          className="btn btn-danger w-100"
+                          className="btn btn-danger"
                           onClick={() => deleteOrder(order.id)}>
                           Cancel Order
                         </button>
-                      </>
-                    ) : (
-                      <div className="alert alert-danger">
-                        This order has already been dispatched and cannot be
-                        edited or cancelled.
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
+                      )}
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-        {/* Bootstrap modal for confirmation */}
-        <div
-          className="modal fade"
-          id="confirmationModal"
-          tabIndex="-1"
-          aria-labelledby="confirmationModalLabel"
-          aria-hidden="true">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="confirmationModalLabel">
-                  Cancel Order Confirmation
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  onClick={() => setOrderToDelete(null)}></button>
-              </div>
-              <div className="modal-body">
-                Are you sure you want to cancel order ID: {orderToDelete?.id}?
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                  onClick={() => setOrderToDelete(null)}>
-                  Close
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={confirmDelete}>
-                  Cancel Order
-                </button>
-              </div>
+      {/* Bootstrap modal for confirmation */}
+      <div
+        className="modal fade"
+        id="confirmationModal"
+        tabIndex="-1"
+        aria-labelledby="confirmationModalLabel"
+        aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="confirmationModalLabel">
+                Cancel Order Confirmation
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                onClick={() => setOrderToDelete(null)}></button>
+            </div>
+            <div className="modal-body">
+              Are you sure you want to cancel order ID: {orderToDelete?.id}?
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onClick={() => setOrderToDelete(null)}>
+                Close
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={confirmDelete}>
+                Cancel Order
+              </button>
             </div>
           </div>
         </div>
