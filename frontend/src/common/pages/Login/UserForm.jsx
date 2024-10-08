@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../redux/authSlice';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from "../../assets/images/logo.jpg";
-import cartimg2 from "../../assets/images/cart2.webp";
+import logo from "../../assets/images/Logo_b.jpeg";
+import cartimg2 from "../../assets/images/blush.avif";
 
 const UserForm = () => {
   const [email, setEmail] = useState('');
@@ -55,13 +55,13 @@ const UserForm = () => {
 
   return (
     <div className="container-fluid d-flex flex-column justify-content-between align-items-center vh-100 p-0">
-      <div className="w-100" style={{ backgroundColor: '#0f3460', height: '40px' }}></div>
+      <div className="w-100" style={{ backgroundColor: '#FFE5ED', height: '40px' }}></div>
       <div className="container d-flex justify-content-center align-items-center flex-grow-1">
-        <div className="card d-flex flex-row" style={{ width: '900px', backgroundColor: '#FAF9F6' }}>
+        <div className="card d-flex flex-row" style={{ width: '1000px', backgroundColor: '#FFFFFF' }}>
           <div className="col-md-6 p-4">
             <div className="text-center mb-4">
-              <img src={logo} alt="Company Logo" className="mb-3" style={{ width: '150px' }} />
-              <h2 className="form-heading">Login to Your Account</h2>
+              <img src={logo} alt="Company Logo" className="mb-3" style={{ width: '300px' }} />
+              <h2 className="form-heading" style={{fontFamily:"cursive"}}>Login to Your Account</h2>
             </div>
             <form onSubmit={handleLogin}>
               <div className="form-group mb-3">
@@ -94,13 +94,13 @@ const UserForm = () => {
             {error && <p className="alert alert-danger mt-3">{error}</p>}
 
             <div className="text-center mt-3">
-              <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+              {/* <p>Don't have an account? <Link to="/signup">Sign Up</Link></p> */}
             </div>
           </div>
-          <div className="col-md-6 d-flex flex-column justify-content-center align-items-start p-4" style={{ backgroundColor: '#0f3460', color: 'white' }}>
-            <h3 style={{ color: 'white', fontFamily: '-moz-initial', textAlign: 'center' }}>WE ARE MORE THAN THE SHOPPING CART</h3><br/>
+          <div className="col-md-6 d-flex flex-column justify-content-center align-items-start p-4" style={{ backgroundColor: '#FFE5ED', color: 'white' }}>
+            <h3 style={{ color: 'black', fontStyle: 'oblique' ,fontFamily:"cursive", textAlign: 'center'}}>WE ARE MORE THAN YOU THINK..</h3><br/>
             <img src={cartimg2} alt="Company Logo" className="mb-3" style={{ width: "410px", height: "450px" }} /><br/>
-            <p style={{ color: 'white', fontSize: '100%' }}>
+            <p style={{ color: 'black', fontSize: '100%', fontStyle: 'oblique' ,fontFamily:"cursive" }}>
               Discover a wide range of products and enjoy a seamless shopping experience.
               Our application offers personalized recommendations, easy navigation, and secure payments.
               Join us and start exploring the best deals available just for you.
@@ -108,7 +108,7 @@ const UserForm = () => {
           </div>
         </div>
       </div>
-      <div className="w-100" style={{ backgroundColor: '#0f3460', height: '30px' }}></div>
+      <div className="w-100" style={{ backgroundColor: '#FFE5ED', height: '30px' }}></div>
     </div>
   );
 };
