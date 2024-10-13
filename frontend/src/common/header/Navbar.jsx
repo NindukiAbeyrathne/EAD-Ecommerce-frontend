@@ -26,6 +26,13 @@ const Navbar = () => {
             <li>
               <Link to='/admin/orders'>Manage Orders</Link>
             </li>
+            
+            <li>
+              <Link to='/admin/cancel-requests'>Cancel Orders</Link>
+            </li>
+            <li>
+              <Link to='csr/manage-users'>Manage Customers</Link>
+            </li>
           </>
         );
       case 'Vendor':

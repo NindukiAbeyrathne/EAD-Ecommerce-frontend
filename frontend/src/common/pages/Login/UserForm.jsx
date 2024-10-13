@@ -63,6 +63,14 @@ const UserForm = () => {
               <img src={logo} alt="Company Logo" className="mb-3" style={{ width: '300px' }} />
               <h2 className="form-heading" style={{fontFamily:"cursive"}}>Login to Your Account</h2>
             </div>
+
+            {/* Display error alert at the top */}
+            {error && (
+              <div className="alert alert-danger">
+                {error}
+              </div>
+            )}
+
             <form onSubmit={handleLogin}>
               <div className="form-group mb-3">
                 <label>Email</label>
@@ -90,8 +98,6 @@ const UserForm = () => {
                 {loading ? 'Loading...' : 'Login'}
               </button>
             </form>
-
-            {error && <p className="alert alert-danger mt-3">{error}</p>}
 
             <div className="text-center mt-3">
               {/* <p>Don't have an account? <Link to="/signup">Sign Up</Link></p> */}

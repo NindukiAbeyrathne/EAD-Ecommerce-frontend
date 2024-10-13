@@ -41,12 +41,12 @@ h2 {
 }
 
 .message.success {
-  background-color: #28a745;
+  background-color: #28a74673;
   color: white;
 }
 
 .message.error {
-  background-color: #dc3545;
+  background-color: #dc35469d;
   color: white;
 }
 

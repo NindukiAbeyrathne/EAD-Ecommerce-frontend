@@ -32,6 +32,7 @@ import EditProductPage from "./common/pages/vendor_pages/EditProduct.js";
 import NotificationPage from "./common/pages/vendor_pages/VendorNotificationPage.js";
 import ProfilePage from "./common/pages/vendor_pages/Profile.js";
 import ViewVendorsProducts from "./common/pages/CSR_pages/ViewVendorsProducts.jsx";
+import CancellationRequests from "./common/pages/admin_pages/CancelRequest.js";
 
 // Custom Hook to get current path
 const usePath = () => {
@@ -72,6 +73,14 @@ const AppWithRouter = () => {
           element={
             <ProtectedRoute>
               <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/admin/cancel-requests"
+          element={
+            <ProtectedRoute>
+              <CancellationRequests />
             </ProtectedRoute>
           }
         />

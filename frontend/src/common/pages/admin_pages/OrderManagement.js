@@ -187,7 +187,7 @@ const ManageOrders = () => {
                       <option value="Processing">Processing</option>
                       <option value="Dispatched">Dispatched</option>
                       <option value="Delivered">Delivered</option>
-                      <option value="Cancelled">Cancelled</option>
+                      <option value="Partially Delivered">Partially Delivered</option>
                     </select>
                   ) : (
                     order.status
@@ -209,18 +209,13 @@ const ManageOrders = () => {
                     </div>
                   ) : (
                     <>
-                      <button
-                        className="btn btn-primary mb-2"
-                        onClick={() => setEditOrderId(order.id)}>
-                        Edit Status
-                      </button>
-                      {order.status === "Processing" && (
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => deleteOrder(order.id)}>
-                          Cancel Order
-                        </button>
-                      )}
+                    <button
+                      className={`btn mb-2 ${order.status === "Cancelled" || order.status === "Cancellation Requested" ? "btn-secondary" : "btn-primary"}`}
+                      onClick={() => setEditOrderId(order.id)}
+                      disabled={order.status === "Cancelled" || order.status === "Cancellation Requested"}
+                    >
+                      Edit Status
+                    </button>
                     </>
                   )}
                 </td>

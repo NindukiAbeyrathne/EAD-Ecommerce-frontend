@@ -10,7 +10,6 @@ const CreateProductPage = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [description, setDescription] = useState(""); // Add description state
   const [error, setError] = useState(null);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -42,15 +41,12 @@ const CreateProductPage = () => {
       }
 
       setError(null);
-      setShowSuccessModal(true);
+      // Show a browser alert on success
+      alert("Product created successfully!");
+      navigate("/vendor/dashboard"); // Redirect to product management page after success
     } catch (err) {
       setError(err.message);
     }
-  };
-
-  const handleModalClose = () => {
-    setShowSuccessModal(false);
-    navigate("/product-management");
   };
 
   return (
@@ -78,7 +74,7 @@ const CreateProductPage = () => {
               placeholder="Enter product description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              required 
+              required
             />
           </div>
 
@@ -126,24 +122,10 @@ const CreateProductPage = () => {
             />
           </div>
 
-          
-
           <button type="submit" className="submit-button">
             Create Product
           </button>
         </form>
-
-        {showSuccessModal && (
-          <div className="modal-overlay">
-            <div className="modal">
-              <h3>Product Created</h3>
-              <p>Your product has been created successfully!</p>
-              <button className="modal-button" onClick={handleModalClose}>
-                Go to Product Management
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
