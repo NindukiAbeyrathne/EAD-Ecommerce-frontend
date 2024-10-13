@@ -12,17 +12,15 @@ const CSRDashboard = () => {
         
         <div className="csr-actions">
           <Link to="/csr/manage-users">
-            <button className="btn btn-primary">Manage Users</button>
+            <button className="btn btn-primary">Manage Customers</button>
           </Link>
-          <Link to="/csr/manage-orders">
-            <button className="btn btn-secondary">Manage Orders</button>
-          </Link>
-          <Link to="/csr/manage-vendor-products">
+          <Link to="/csr//view-products">
             <button className="btn btn-secondary">View Vendors & Products</button>
           </Link>
-          <Link to="/csr/manage-deliveries">
-            <button className="btn btn-success">Track Deliveries</button>
+          <Link to="/admin/orders">
+            <button className="btn btn-secondary">Manage Orders</button>
           </Link>
+          
         </div>
       </div>
     </div>
