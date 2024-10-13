@@ -59,6 +59,9 @@ const Navbar = () => {
               <Link to='/csr/view-products'>View Products</Link>
             </li>
             <li>
+              <Link to='/admin/cancel-requests'>Cancel Orders</Link>
+            </li>
+            <li>
               <Link to='/admin/orders'>Manage Orders</Link>
             </li>
           </>
