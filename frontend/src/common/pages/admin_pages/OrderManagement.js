@@ -11,6 +11,7 @@ const ManageOrders = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false); // New state for showing error messages
   const [orderToDelete, setOrderToDelete] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // State to store the search term
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -29,6 +30,17 @@ const ManageOrders = () => {
 
     fetchOrders();
   }, []);
+
+  // Function to handle search
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredOrders = orders.filter(
+    (order) =>
+      order.id.toString().includes(searchTerm) ||
+      order.customerId.toString().includes(searchTerm)
+  );
 
   const saveEditOrder = async (order) => {
     try {
@@ -121,7 +133,16 @@ const ManageOrders = () => {
 
   return (
     <div className="container-fluid mt-5">
-
+      {/* Search bar */}
+      <div className="mb-4">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search by Order ID or Customer ID"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+      </div>
 
       {/* Success Message */}
       {showSuccess && (
@@ -156,7 +177,7 @@ const ManageOrders = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
+            {filteredOrders.map((order) => (
               <tr key={order.id}>
                 <td>{order.id}</td>
                 <td>{order.customerId}</td>
